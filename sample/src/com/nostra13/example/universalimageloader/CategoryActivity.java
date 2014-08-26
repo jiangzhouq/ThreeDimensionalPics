@@ -60,9 +60,7 @@ public class CategoryActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_pager);
 
-		Bundle bundle = getIntent().getExtras();
-		assert bundle != null;
-//		int pagerPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
+		imageUrls = getIntent().getStringArrayExtra(Constants.CATEGORY_IMAGE_URLS_NAME);
 		
 		if (savedInstanceState != null) {
 			pagerPosition = savedInstanceState.getInt(STATE_POSITION);
