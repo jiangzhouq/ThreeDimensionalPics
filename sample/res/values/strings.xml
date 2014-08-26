@@ -19,5 +19,15 @@
     <string name="button_image_gallery">Gallery</string>
     <!-- Content descriptions -->
     <string name="descr_image">Image</string>
-
+	<string name="category1">创意</string>
+	<string name="category2">动漫</string>
+	<string name="category3">风景</string>
+	<string name="category4">建筑</string>
+	<string name="category5">卡通</string>
+	<string name="category6">可爱</string>
+	<string name="category7">美女</string>
+	<string name="category8">明星</string>
+	<string name="category9">汽车</string>
+	<string name="category10">影视</string>
+	<string name="category11">游戏</string>
 </resources>

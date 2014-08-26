@@ -11,6 +11,7 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/descr_image" />
     <ImageView
         android:id="@+id/category2"
@@ -19,6 +20,7 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/descr_image" />
     <ImageView
         android:id="@+id/category3"
@@ -27,6 +29,7 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/descr_image" />
     <ImageView
         android:id="@+id/category4"
@@ -35,6 +38,7 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/descr_image" />
     <ImageView
         android:id="@+id/category5"
@@ -43,5 +47,6 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/descr_image" />
 </LinearLayout>

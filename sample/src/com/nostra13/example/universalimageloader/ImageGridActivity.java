@@ -120,7 +120,8 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 				assert view != null;
 				holder.imageView = (ImageView) view.findViewById(R.id.image);
 				FrameLayout.LayoutParams imgvwDimens = 
-				        new FrameLayout.LayoutParams(((GridView)listView).getWidth()/numCol, ((GridView)listView).getWidth()/numCol);
+				        new FrameLayout.LayoutParams(((GridView)listView).getColumnWidth(), ((GridView)listView).getColumnWidth());
+				Log.d("qiqi", "width:" + ((GridView)listView).getColumnWidth());
 				holder.imageView.setLayoutParams(imgvwDimens);
 				holder.progressBar = (ProgressBar) view.findViewById(R.id.progress);
 				view.setTag(holder);

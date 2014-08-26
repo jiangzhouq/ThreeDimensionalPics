@@ -26,6 +26,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Layout.Directions;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,11 +83,21 @@ public class CategoryActivity extends FragmentActivity {
 		hideSystemUI();
 		pager = (DirectionalViewPager) findViewById(R.id.pager);
 		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
+				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
+			}else{
+				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES_LAND;
+			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setOrientation(DirectionalViewPager.HORIZONTAL);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}else{
+			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
+				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES;
+			}else{
+				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES;
+			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_PORTRAIT);
 			pager.setOrientation(DirectionalViewPager.VERTICAL);
 			pager.setAdapter(mAdapter);
@@ -98,11 +109,21 @@ public class CategoryActivity extends FragmentActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
+				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
+			}else{
+				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES_LAND;
+			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setOrientation(DirectionalViewPager.HORIZONTAL);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}else{
+			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
+				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES;
+			}else{
+				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES;
+			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_PORTRAIT);
 			pager.setOrientation(DirectionalViewPager.VERTICAL); 
 			pager.setAdapter(mAdapter);
@@ -122,11 +143,13 @@ public class CategoryActivity extends FragmentActivity {
 			super(fm);
 			mImages = images;
 			mDirect = direct;
+			Log.d("qiqi", "new pageadapter");
 		}
 
 		@Override
 		public Fragment getItem(int position) {
 			// TODO Auto-generated method stub
+			Log.d("qiqi", "mDirect:" + mDirect);
 			return CategoryFragment.newInstance(position , mImages , mDirect, mode_choice);
 		}
 
