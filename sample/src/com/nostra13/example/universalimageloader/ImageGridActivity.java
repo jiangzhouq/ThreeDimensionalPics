@@ -46,8 +46,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_grid);
 
-		Bundle bundle = getIntent().getExtras();
-		imageUrls = bundle.getStringArray(Extra.IMAGES);
+		imageUrls = getIntent().getStringArrayExtra(Constants.IMAGES_LIGHT);
 
 		options = new DisplayImageOptions.Builder()
 			.showImageOnLoading(R.drawable.ic_stub)

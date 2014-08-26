@@ -36,11 +36,13 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		Intent intent = new Intent(this,CategoryActivity.class);
 		switch(v.getId()){
 		case R.id.honglan:
-			intent.putExtra(Constants.CATEGORY_IMAGE_URLS_NAME, Constants.IMAGES_HONGLAN);
+			intent.putExtra(Constants.CATEGORY_IMAGE_URLS_NAME, Constants.IMAGES_HONGLAN_CATEGORIES);
+			intent.putExtra(Constants.MODE_CHOICE_NAME, Constants.MODE_CHOLICE_HONGLAN);
 			startActivity(intent);
 			break;
 		case R.id.zuoyou:
-			intent.putExtra(Constants.CATEGORY_IMAGE_URLS_NAME, Constants.IMAGES_ZUOYOU);
+			intent.putExtra(Constants.CATEGORY_IMAGE_URLS_NAME, Constants.IMAGES_ZUOYOU_CATEGORIES);
+			intent.putExtra(Constants.MODE_CHOICE_NAME, Constants.MODE_CHOLICE_ZUOYOU);
 			startActivity(intent);
 			break;
 		}

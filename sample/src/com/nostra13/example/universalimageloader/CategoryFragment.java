@@ -1,11 +1,14 @@
 package com.nostra13.example.universalimageloader;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,7 +18,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
-public final class CategoryFragment extends Fragment {
+public final class CategoryFragment extends Fragment implements OnClickListener{
 	private static final String KEY_CONTENT = "TestFragment:Content";
 	DisplayImageOptions options = new DisplayImageOptions.Builder()
 	.showImageForEmptyUri(R.drawable.ic_empty)
@@ -30,12 +33,13 @@ public final class CategoryFragment extends Fragment {
 	
 	private String[] mImages;
 	private int mDirect;
-	
-	public static CategoryFragment newInstance(int content , String[] images, int direct) {
+	private int mModeChoice = 0;
+	public static CategoryFragment newInstance(int content , String[] images, int direct, int mode_choice) {
 		CategoryFragment fragment = new CategoryFragment();
 		fragment.mDirect = direct;
 		fragment.mImages = images;
 		fragment.mContent = content;
+		fragment.mModeChoice = mode_choice;
 		return fragment;
 	}
 	private int  mContent = 0;
@@ -60,7 +64,9 @@ public final class CategoryFragment extends Fragment {
 		for (int i = 0; i < imageViewIds.length; i++){
 			if((mContent * imageViewIds.length + i) < mImages.length){
 				ImageView imageView = (ImageView) layout.findViewById(imageViewIds[i]);
+				imageView.setTag(mContent*imageViewIds.length + i);
 				imageLoader.displayImage(mImages[mContent*imageViewIds.length + i], imageView, options);
+				imageView.setOnClickListener(this);
 			}
 		}
 		
@@ -71,5 +77,24 @@ public final class CategoryFragment extends Fragment {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt(KEY_CONTENT, mContent);
+	}
+
+	@Override
+	public void onClick(View view) {
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", view.getTag() + "");
+		}
+		if(mModeChoice == Constants.MODE_CHOLICE_HONGLAN){
+			String[] imageUrls = Constants.getHonglanLightImages()[Integer.valueOf(view.getTag().toString())];
+			Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+			intent.putExtra(Constants.IMAGES_LIGHT, imageUrls);
+			getActivity().startActivity(intent);
+			
+		}else{
+			String[] imageUrls = Constants.getZuoyouLightImages()[Integer.valueOf(view.getTag().toString())];
+			Intent intent = new Intent(getActivity(), ImageGridActivity.class);
+			intent.putExtra(Constants.IMAGES_LIGHT, imageUrls);
+			getActivity().startActivity(intent);
+		}
 	}
 }

@@ -55,13 +55,14 @@ public class CategoryActivity extends FragmentActivity {
 	private View mDecorView;
 	int pagerPosition = 0;
 	private String[] imageUrls = Constants.IMAGES;
+	private int mode_choice = 0;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_pager);
 
 		imageUrls = getIntent().getStringArrayExtra(Constants.CATEGORY_IMAGE_URLS_NAME);
-		
+		mode_choice = getIntent().getIntExtra(Constants.MODE_CHOICE_NAME, Constants.MODE_CHOLICE_HONGLAN);
 		if (savedInstanceState != null) {
 			pagerPosition = savedInstanceState.getInt(STATE_POSITION);
 		}
@@ -91,7 +92,6 @@ public class CategoryActivity extends FragmentActivity {
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}
-		
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class CategoryActivity extends FragmentActivity {
 		@Override
 		public Fragment getItem(int position) {
 			// TODO Auto-generated method stub
-			return CategoryFragment.newInstance(position , mImages , mDirect);
+			return CategoryFragment.newInstance(position , mImages , mDirect, mode_choice);
 		}
 
 		@Override
