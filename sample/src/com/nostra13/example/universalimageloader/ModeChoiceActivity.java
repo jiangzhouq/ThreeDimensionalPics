@@ -22,7 +22,10 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		}else{
 			setContentView(R.layout.mc_portrait);
 		}
+		setListener();
 		hideSystemUI();
+	}
+	private void setListener(){
 		ImageView view1 = (ImageView) findViewById(R.id.honglan);
 		view1.setOnClickListener(this);
 		ImageView view2 = (ImageView) findViewById(R.id.zuoyou);
@@ -30,11 +33,15 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
+		Intent intent = new Intent(this,CategoryActivity.class);
 		switch(v.getId()){
 		case R.id.honglan:
-			startActivity(new Intent(this, CategoryActivity.class));
+			intent.putExtra(Constants.CATEGORY_IMAGE_URLS_NAME, Constants.IMAGES_HONGLAN);
+			startActivity(intent);
 			break;
 		case R.id.zuoyou:
+			intent.putExtra(Constants.CATEGORY_IMAGE_URLS_NAME, Constants.IMAGES_ZUOYOU);
+			startActivity(intent);
 			break;
 		}
 	}
@@ -52,6 +59,7 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 			}
 			setContentView(R.layout.mc_portrait);
 		}
+		setListener();
 	}
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {

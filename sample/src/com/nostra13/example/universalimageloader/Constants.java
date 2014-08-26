@@ -21,6 +21,31 @@ package com.nostra13.example.universalimageloader;
 public final class Constants {
 	
 	public static final boolean LOG_ENABLE = true;
+	public static final String CATEGORY_IMAGE_URLS_NAME = "categories";
+	public static final String[] IMAGES_HONGLAN = new String[]{
+		"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png",
+		"http://simpozia.com/pages/images/stories/windows-icon.png",
+		"http://radiotray.sourceforge.net/radio.png",
+		"http://www.bandwidthblog.com/wp-content/uploads/2011/11/twitter-logo.png",
+		"http://weloveicons.s3.amazonaws.com/icons/100907_itunes1.png",
+		"http://weloveicons.s3.amazonaws.com/icons/100929_applications.png",
+		"http://www.idyllicmusic.com/index_files/get_apple-iphone.png",
+		"http://www.frenchrevolutionfood.com/wp-content/uploads/2009/04/Twitter-Bird.png",
+		"http://3.bp.blogspot.com/-ka5MiRGJ_S4/TdD9OoF6bmI/AAAAAAAAE8k/7ydKtptUtSg/s1600/Google_Sky%2BMaps_Android.png"
+	};
+	public static final String[] IMAGES_ZUOYOU = new String[]{
+		"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png",
+		"http://simpozia.com/pages/images/stories/windows-icon.png",
+		"http://radiotray.sourceforge.net/radio.png",
+		"http://www.bandwidthblog.com/wp-content/uploads/2011/11/twitter-logo.png",
+		"http://weloveicons.s3.amazonaws.com/icons/100907_itunes1.png",
+		"http://weloveicons.s3.amazonaws.com/icons/100929_applications.png",
+		"http://www.idyllicmusic.com/index_files/get_apple-iphone.png",
+		"http://www.frenchrevolutionfood.com/wp-content/uploads/2009/04/Twitter-Bird.png",
+		"http://3.bp.blogspot.com/-ka5MiRGJ_S4/TdD9OoF6bmI/AAAAAAAAE8k/7ydKtptUtSg/s1600/Google_Sky%2BMaps_Android.png",
+		"http://www.desiredsoft.com/images/icon_webhosting.png",
+		"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png"
+	};
 	public static final String[] IMAGES = new String[] {
 			// Light images
 			"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png",
