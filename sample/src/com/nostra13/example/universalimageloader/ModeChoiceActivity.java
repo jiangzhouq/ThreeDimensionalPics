@@ -1,6 +1,7 @@
 package com.nostra13.example.universalimageloader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.honglan:
+			startActivity(new Intent(this, CategoryActivity.class));
 			break;
 		case R.id.zuoyou:
 			break;
