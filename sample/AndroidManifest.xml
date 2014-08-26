@@ -25,16 +25,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CategoryActivity"/>
+            android:name=".CategoryActivity"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ImageListActivity"
             android:label="@string/ac_name_image_list" />
         <activity
             android:name=".ImageGridActivity"
-            android:label="@string/ac_name_image_grid" />
+            android:label="@string/ac_name_image_grid" 
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ImagePagerActivity"
-            android:label="@string/ac_name_image_pager" />
+            android:label="@string/ac_name_image_pager" 
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".ImageGalleryActivity"
             android:label="@string/ac_name_image_gallery" />
