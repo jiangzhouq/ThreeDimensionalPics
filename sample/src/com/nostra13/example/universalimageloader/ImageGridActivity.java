@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -53,7 +54,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_grid);
-
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		imageUrls = getIntent().getStringArrayExtra(Constants.IMAGES_LIGHT);
 		mDecorView = getWindow().getDecorView();
 		hideSystemUI();

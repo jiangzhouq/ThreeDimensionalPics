@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,7 +50,7 @@ public class ImagePagerActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_pager);
-
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Bundle bundle = getIntent().getExtras();
 		assert bundle != null;
 		String[] imageUrls = bundle.getStringArray(Extra.IMAGES);
