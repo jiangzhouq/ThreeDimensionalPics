@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class ModeChoiceActivity extends Activity implements OnClickListener{
@@ -26,9 +27,9 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		hideSystemUI();
 	}
 	private void setListener(){
-		ImageView view1 = (ImageView) findViewById(R.id.honglan);
+		Button view1 = (Button) findViewById(R.id.honglan);
 		view1.setOnClickListener(this);
-		ImageView view2 = (ImageView) findViewById(R.id.zuoyou);
+		Button view2 = (Button) findViewById(R.id.zuoyou);
 		view2.setOnClickListener(this);
 	}
 	@Override

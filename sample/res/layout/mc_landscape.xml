@@ -4,17 +4,20 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <ImageView 
+    <Button
         android:id="@+id/honglan"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="fill_parent"
-        android:src="@android:drawable/arrow_up_float"/>
-    
-    <ImageView 
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="红蓝" />
+
+    <Button
         android:id="@+id/zuoyou"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="fill_parent"
-        android:src="@android:drawable/arrow_down_float"/>
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="左右" />
+
 </LinearLayout>
