@@ -287,38 +287,30 @@ public final class Constants {
 	};
 	public static String[][] getHonglanLightImages(){
 		String[][] images = new String[9][];
-		for(int i = 0 ; i < 9 ; i++){
-			images[i] = new String[]{
-			"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png",
-			"http://simpozia.com/pages/images/stories/windows-icon.png",
-			"http://radiotray.sourceforge.net/radio.png",
-			"http://www.bandwidthblog.com/wp-content/uploads/2011/11/twitter-logo.png",
-			"http://weloveicons.s3.amazonaws.com/icons/100907_itunes1.png",
-			"http://weloveicons.s3.amazonaws.com/icons/100929_applications.png",
-			"http://www.idyllicmusic.com/index_files/get_apple-iphone.png",
-			"http://www.frenchrevolutionfood.com/wp-content/uploads/2009/04/Twitter-Bird.png",
-			"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png"
-			};
-		}
+		images[0] = IMAGE_CATEGORY_01;
+		images[1] = IMAGE_CATEGORY_02;
+		images[2] = IMAGE_CATEGORY_03;
+		images[3] = IMAGE_CATEGORY_04;
+		images[4] = IMAGE_CATEGORY_05;
+		images[5] = IMAGE_CATEGORY_06;
+		images[6] = IMAGE_CATEGORY_07;
+		images[7] = IMAGE_CATEGORY_08;
+		images[8] = IMAGE_CATEGORY_09;
 		return images;
 	}
 	public static String[][] getZuoyouLightImages(){
 		String[][] images = new String[11][];
-		for(int i = 0 ; i < 11 ; i++){
-			images[i] = new String[]{
-					"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png",
-					"http://simpozia.com/pages/images/stories/windows-icon.png",
-					"http://radiotray.sourceforge.net/radio.png",
-					"http://www.bandwidthblog.com/wp-content/uploads/2011/11/twitter-logo.png",
-					"http://weloveicons.s3.amazonaws.com/icons/100907_itunes1.png",
-					"http://weloveicons.s3.amazonaws.com/icons/100929_applications.png",
-					"http://www.idyllicmusic.com/index_files/get_apple-iphone.png",
-					"http://www.frenchrevolutionfood.com/wp-content/uploads/2009/04/Twitter-Bird.png",
-					"http://www.desiredsoft.com/images/icon_webhosting.png",
-					"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png",
-					"http://tabletpcssource.com/wp-content/uploads/2011/05/android-logo.png"
-			};
-		}
+		images[0] = IMAGE_CATEGORY_01;
+		images[1] = IMAGE_CATEGORY_02;
+		images[2] = IMAGE_CATEGORY_03;
+		images[3] = IMAGE_CATEGORY_04;
+		images[4] = IMAGE_CATEGORY_05;
+		images[5] = IMAGE_CATEGORY_06;
+		images[6] = IMAGE_CATEGORY_07;
+		images[7] = IMAGE_CATEGORY_08;
+		images[8] = IMAGE_CATEGORY_09;
+		images[9] = IMAGE_CATEGORY_10;
+		images[10] = IMAGE_CATEGORY_11;
 		return images;
 	}
 	public static final String[] IMAGES = new String[] {

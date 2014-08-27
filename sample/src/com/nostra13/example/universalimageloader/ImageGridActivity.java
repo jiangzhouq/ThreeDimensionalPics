@@ -53,8 +53,8 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ac_image_grid);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.ac_image_grid);
 		imageUrls = getIntent().getStringArrayExtra(Constants.IMAGES_LIGHT);
 		mDecorView = getWindow().getDecorView();
 		hideSystemUI();

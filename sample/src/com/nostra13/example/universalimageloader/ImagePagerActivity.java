@@ -71,9 +71,9 @@ public class ImagePagerActivity extends BaseActivity {
 			.displayer(new FadeInBitmapDisplayer(300))
 			.build();
 
-//		pager = (ViewPager) findViewById(R.id.pager);
-//		pager.setAdapter(new ImagePagerAdapter(imageUrls));
-//		pager.setCurrentItem(pagerPosition);
+		pager = (ViewPager) findViewById(R.id.pager);
+		pager.setAdapter(new ImagePagerAdapter(imageUrls));
+		pager.setCurrentItem(pagerPosition);
 	}
 
 	@Override
