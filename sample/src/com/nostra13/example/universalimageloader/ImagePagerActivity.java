@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.nostra13.example.universalimageloader;
 
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -45,19 +46,22 @@ public class ImagePagerActivity extends BaseActivity {
 	DisplayImageOptions options;
 
 	ViewPager pager;
-
+	private View mDecorView;
+	private String[] mImageUrls;
+	private int mPagerPosition;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ac_image_pager);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.ac_image_pager_2);
+
 		Bundle bundle = getIntent().getExtras();
 		assert bundle != null;
-		String[] imageUrls = bundle.getStringArray(Extra.IMAGES);
-		int pagerPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
+		mImageUrls= bundle.getStringArray(Extra.IMAGES);
+		mPagerPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
 
 		if (savedInstanceState != null) {
-			pagerPosition = savedInstanceState.getInt(STATE_POSITION);
+			mPagerPosition = savedInstanceState.getInt(STATE_POSITION);
 		}
 
 		options = new DisplayImageOptions.Builder()
@@ -72,13 +76,151 @@ public class ImagePagerActivity extends BaseActivity {
 			.build();
 
 		pager = (ViewPager) findViewById(R.id.pager);
-		pager.setAdapter(new ImagePagerAdapter(imageUrls));
-		pager.setCurrentItem(pagerPosition);
+		pager.setAdapter(new ImagePagerAdapter(mImageUrls));
+		pager.setCurrentItem(mPagerPosition);
+		mDecorView = getWindow().getDecorView();
+		hideSystemUI();
 	}
-
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+		super.onConfigurationChanged(newConfig);
+		pager.setAdapter(new ImagePagerAdapter(mImageUrls));
+		pager.setCurrentItem(mPagerPosition);
+	}
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 //		outState.putInt(STATE_POSITION, pager.getCurrentItem());
 	}
 
+	private class ImagePagerAdapter extends PagerAdapter {
+
+		private String[] images;
+		private LayoutInflater inflater;
+
+		ImagePagerAdapter(String[] images) {
+			this.images = images;
+			inflater = getLayoutInflater();
+		}
+
+		@Override
+		public int getCount() {
+			return images.length;
+		}
+
+		@Override
+		public boolean isViewFromObject(View view, Object object) {
+			return view.equals(object);
+		}
+
+		@Override
+		public void restoreState(Parcelable state, ClassLoader loader) {
+		}
+
+		@Override
+		public Parcelable saveState() {
+			return null;
+		}
+
+		@Override
+		public void destroyItem(View view, int arg1, Object object) {
+			ViewGroup container = (ViewGroup) view;
+			container.removeView((View) object);
+		}
+
+		@Override
+		public void finishUpdate(View arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public Object instantiateItem(View view, int position) {
+			ViewGroup viewG = (ViewGroup) view;
+			View imageLayout = inflater.inflate(R.layout.item_pager_image, viewG, false);
+			assert imageLayout != null;
+			ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
+			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
+
+			imageLoader.displayImage(images[position], imageView, options, new SimpleImageLoadingListener() {
+				@Override
+				public void onLoadingStarted(String imageUri, View view) {
+					spinner.setVisibility(View.VISIBLE);
+				}
+
+				@Override
+				public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+					String message = null;
+					switch (failReason.getType()) {
+						case IO_ERROR:
+							message = "Input/Output error";
+							break;
+						case DECODING_ERROR:
+							message = "Image can't be decoded";
+							break;
+						case NETWORK_DENIED:
+							message = "Downloads are denied";
+							break;
+						case OUT_OF_MEMORY:
+							message = "Out Of Memory error";
+							break;
+						case UNKNOWN:
+							message = "Unknown error";
+							break;
+					}
+					Toast.makeText(ImagePagerActivity.this, message, Toast.LENGTH_SHORT).show();
+
+					spinner.setVisibility(View.GONE);
+				}
+
+				@Override
+				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+					spinner.setVisibility(View.GONE);
+				}
+			});
+
+			viewG.addView(imageLayout, 0);
+			return imageLayout;
+		}
+
+		@Override
+		public void startUpdate(View arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+	        super.onWindowFocusChanged(hasFocus);
+	    if (hasFocus) {
+	    	mDecorView.setSystemUiVisibility(
+	                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+	                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+	                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+	                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+	                | View.SYSTEM_UI_FLAG_FULLSCREEN
+	                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+	}
+	// This snippet hides the system bars.
+	private void hideSystemUI() {
+	    // Set the IMMERSIVE flag.
+	    // Set the content to appear under the system bars so that the content
+	    // doesn't resize when the system bars hide and show.
+	    mDecorView.setSystemUiVisibility(
+	            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+	            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+	            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+	            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+	            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+	            | View.SYSTEM_UI_FLAG_IMMERSIVE);
+	}
+
+	// This snippet shows the system bars. It does this by removing all the flags
+	// except for the ones that make the content appear under the system bars.
+	private void showSystemUI() {
+	    mDecorView.setSystemUiVisibility(
+	            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+	            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+	            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+	}
 }
