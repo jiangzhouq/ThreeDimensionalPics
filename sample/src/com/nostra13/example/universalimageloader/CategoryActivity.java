@@ -58,6 +58,7 @@ public class CategoryActivity extends FragmentActivity {
 	int pagerPosition = 0;
 	private String[] imageUrls = Constants.IMAGES;
 	private int mode_choice = 0;
+	private int[] mTitles = Constants.TITLES_HONGLAN;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,8 +88,10 @@ public class CategoryActivity extends FragmentActivity {
 		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
+				mTitles = Constants.TITLES_HONGLAN;
 			}else{
 				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES_LAND;
+				mTitles = Constants.TITLES_ZUOYOU;
 			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setOrientation(DirectionalViewPager.HORIZONTAL);
@@ -97,8 +100,10 @@ public class CategoryActivity extends FragmentActivity {
 		}else{
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES;
+				mTitles = Constants.TITLES_HONGLAN;
 			}else{
 				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES;
+				mTitles = Constants.TITLES_ZUOYOU;
 			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_PORTRAIT);
 			pager.setOrientation(DirectionalViewPager.VERTICAL);
@@ -113,8 +118,10 @@ public class CategoryActivity extends FragmentActivity {
 		if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
+				mTitles = Constants.TITLES_HONGLAN;
 			}else{
 				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES_LAND;
+				mTitles = Constants.TITLES_ZUOYOU;
 			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setOrientation(DirectionalViewPager.HORIZONTAL);
@@ -123,8 +130,10 @@ public class CategoryActivity extends FragmentActivity {
 		}else{
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES;
+				mTitles = Constants.TITLES_HONGLAN;
 			}else{
 				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES;
+				mTitles = Constants.TITLES_ZUOYOU;
 			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_PORTRAIT);
 			pager.setOrientation(DirectionalViewPager.VERTICAL); 
@@ -152,7 +161,7 @@ public class CategoryActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			// TODO Auto-generated method stub
 			Log.d("qiqi", "mDirect:" + mDirect);
-			return CategoryFragment.newInstance(position , mImages , mDirect, mode_choice);
+			return CategoryFragment.newInstance(position ,mTitles, mImages , mDirect, mode_choice);
 		}
 
 		@Override

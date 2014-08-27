@@ -26,6 +26,17 @@ public final class Constants {
 	public static final int MODE_CHOLICE_HONGLAN = 0;
 	public static final int MODE_CHOLICE_ZUOYOU = 1;
 	public static final String IMAGES_LIGHT = "light";
+	public static final int[] TITLES_HONGLAN = new int[]{
+		R.string.category1,
+		R.string.category2,
+		R.string.category3,
+		R.string.category4,
+		R.string.category5,
+		R.string.category6,
+		R.string.category7,
+		R.string.category8,
+		R.string.category9,
+	};
 	public static final String[] IMAGES_HONGLAN_CATEGORIES = new String[]{
 		"http://qijiangzhou.com/linshi/three/category/01_1.jpg",
 		"http://qijiangzhou.com/linshi/three/category/02_01.jpg",
@@ -47,6 +58,19 @@ public final class Constants {
 		"http://qijiangzhou.com/linshi/three/category/07_02.jpg",
 		"http://qijiangzhou.com/linshi/three/category/08_02.jpg",
 		"http://qijiangzhou.com/linshi/three/category/09_02.jpg",
+	};
+	public static final int[] TITLES_ZUOYOU = new int[]{
+		R.string.category1,
+		R.string.category2,
+		R.string.category3,
+		R.string.category4,
+		R.string.category5,
+		R.string.category6,
+		R.string.category7,
+		R.string.category8,
+		R.string.category9,
+		R.string.category10,
+		R.string.category11,
 	};
 	public static final String[] IMAGES_ZUOYOU_CATEGORIES = new String[]{
 		"http://qijiangzhou.com/linshi/three/category/01_1.jpg",

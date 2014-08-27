@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,14 +33,16 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 	.build();
 	
 	private String[] mImages;
+	private int[] mTitles;
 	private int mDirect;
 	private int mModeChoice = 0;
-	public static CategoryFragment newInstance(int content , String[] images, int direct, int mode_choice) {
+	public static CategoryFragment newInstance(int content , int[] titles, String[] images, int direct, int mode_choice) {
 		CategoryFragment fragment = new CategoryFragment();
 		fragment.mDirect = direct;
 		fragment.mImages = images;
 		fragment.mContent = content;
 		fragment.mModeChoice = mode_choice;
+		fragment.mTitles = titles;
 		return fragment;
 	}
 	private int  mContent = 0;
@@ -69,7 +72,19 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 				imageView.setOnClickListener(this);
 			}
 		}
-		
+		int[] titleIds = new int[]{
+				R.id.title1,
+				R.id.title2,
+				R.id.title3,
+				R.id.title4,
+				R.id.title5,
+		};
+		for (int i = 0; i < titleIds.length; i++){
+			if((mContent * titleIds.length + i) < mTitles.length){
+				TextView text = (TextView) layout.findViewById(titleIds[i]);
+				text.setText(mTitles[mContent * titleIds.length + i]);
+			}
+		}
 		return layout;
 	}
 
