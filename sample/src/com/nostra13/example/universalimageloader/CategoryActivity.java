@@ -18,29 +18,18 @@ package com.nostra13.example.universalimageloader;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Layout.Directions;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.directionalviewpager.DirectionalViewPager;
-import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.nostra13.example.universalimageloader.widget.VerticalViewPager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 /**
@@ -51,8 +40,6 @@ public class CategoryActivity extends FragmentActivity {
 	private static final String STATE_POSITION = "STATE_POSITION";
 
 	DisplayImageOptions options;
-
-	DirectionalViewPager pager;
 	private ImagePagerAdapter mAdapter;
 	private View mDecorView;
 	int pagerPosition = 0;
@@ -63,8 +50,6 @@ public class CategoryActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.ac_image_pager);
-
 		imageUrls = getIntent().getStringArrayExtra(Constants.CATEGORY_IMAGE_URLS_NAME);
 		mode_choice = getIntent().getIntExtra(Constants.MODE_CHOICE_NAME, Constants.MODE_CHOLICE_HONGLAN);
 		if (savedInstanceState != null) {
@@ -81,11 +66,10 @@ public class CategoryActivity extends FragmentActivity {
 			.considerExifParams(true)
 			.displayer(new FadeInBitmapDisplayer(300))
 			.build();
-
-		mDecorView = getWindow().getDecorView();
-		hideSystemUI();
-		pager = (DirectionalViewPager) findViewById(R.id.pager);
 		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+			setContentView(R.layout.ac_image_pager_2);
+			ViewPager pager;
+			pager = (ViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
 				mTitles = Constants.TITLES_HONGLAN;
@@ -94,10 +78,12 @@ public class CategoryActivity extends FragmentActivity {
 				mTitles = Constants.TITLES_ZUOYOU;
 			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_LANDSCAPE);
-			pager.setOrientation(DirectionalViewPager.HORIZONTAL);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}else{
+			VerticalViewPager pager;
+			setContentView(R.layout.ac_image_pager);
+			pager = (VerticalViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES;
 				mTitles = Constants.TITLES_HONGLAN;
@@ -106,16 +92,20 @@ public class CategoryActivity extends FragmentActivity {
 				mTitles = Constants.TITLES_ZUOYOU;
 			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_PORTRAIT);
-			pager.setOrientation(DirectionalViewPager.VERTICAL);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}
+		mDecorView = getWindow().getDecorView();
+		hideSystemUI();
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+			ViewPager pager;
+			setContentView(R.layout.ac_image_pager_2);
+			pager = (ViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
 				mTitles = Constants.TITLES_HONGLAN;
@@ -124,10 +114,12 @@ public class CategoryActivity extends FragmentActivity {
 				mTitles = Constants.TITLES_ZUOYOU;
 			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_LANDSCAPE);
-			pager.setOrientation(DirectionalViewPager.HORIZONTAL);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}else{
+			VerticalViewPager pager;
+			setContentView(R.layout.ac_image_pager);
+			pager = (VerticalViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES;
 				mTitles = Constants.TITLES_HONGLAN;
@@ -136,7 +128,6 @@ public class CategoryActivity extends FragmentActivity {
 				mTitles = Constants.TITLES_ZUOYOU;
 			}
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_PORTRAIT);
-			pager.setOrientation(DirectionalViewPager.VERTICAL); 
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}

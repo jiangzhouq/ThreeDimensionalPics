@@ -30,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.nostra13.example.universalimageloader.widget.ZoomOutPageTransformer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -76,6 +77,7 @@ public class ImagePagerActivity extends BaseActivity {
 			.build();
 
 		pager = (ViewPager) findViewById(R.id.pager);
+		pager.setPageTransformer(true, new ZoomOutPageTransformer());
 		pager.setAdapter(new ImagePagerAdapter(mImageUrls));
 		pager.setCurrentItem(mPagerPosition);
 		mDecorView = getWindow().getDecorView();
