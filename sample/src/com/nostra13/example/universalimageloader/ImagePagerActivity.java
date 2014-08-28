@@ -15,9 +15,14 @@
  *******************************************************************************/
 package com.nostra13.example.universalimageloader;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -50,6 +55,16 @@ public class ImagePagerActivity extends BaseActivity {
 	private View mDecorView;
 	private String[] mImageUrls;
 	private int mPagerPosition;
+	private Timer mTimer;
+	private Handler mHandler= new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch(msg.what){
+			case 0:
+				pager.setCurrentItem(pager.getCurrentItem() + 1,true);
+				break;
+			}
+		};
+	};
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,6 +97,24 @@ public class ImagePagerActivity extends BaseActivity {
 		pager.setCurrentItem(mPagerPosition);
 		mDecorView = getWindow().getDecorView();
 		hideSystemUI();
+		mTimer = new Timer();
+		mTimer.schedule(new MyTask(), 3000,3000);
+	}
+	class MyTask extends TimerTask{
+
+		@Override
+		public void run() {
+			if(pager != null){
+				mHandler.sendEmptyMessage(0);
+			}
+		}
+		
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		mTimer.cancel();
 	}
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
