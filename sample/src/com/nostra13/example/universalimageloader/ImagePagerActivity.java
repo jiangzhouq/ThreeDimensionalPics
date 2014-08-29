@@ -22,36 +22,40 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.nostra13.example.universalimageloader.widget.MyViewPager;
+import com.nostra13.example.universalimageloader.widget.MyViewPager.Toucher;
 import com.nostra13.example.universalimageloader.widget.ZoomOutPageTransformer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
-public class ImagePagerActivity extends BaseActivity {
+public class ImagePagerActivity extends BaseActivity implements OnClickListener {
 
 	private static final String STATE_POSITION = "STATE_POSITION";
 
 	DisplayImageOptions options;
 
-	ViewPager pager;
+	MyViewPager pager;
 	private View mDecorView;
 	private String[] mImageUrls;
 	private int mPagerPosition;
@@ -65,6 +69,7 @@ public class ImagePagerActivity extends BaseActivity {
 			}
 		};
 	};
+	private boolean bar_show = true;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,15 +96,52 @@ public class ImagePagerActivity extends BaseActivity {
 			.displayer(new FadeInBitmapDisplayer(300))
 			.build();
 
-		pager = (ViewPager) findViewById(R.id.pager);
+		pager = (MyViewPager) findViewById(R.id.pager);
 		pager.setPageTransformer(true, new ZoomOutPageTransformer());
 		pager.setAdapter(new ImagePagerAdapter(mImageUrls));
 		pager.setCurrentItem(mPagerPosition);
+		pager.setToucher(new Toucher() {
+			@Override
+			public void onTouchUp() {
+				mTimer = new Timer();
+				bar_show = !bar_show;
+				LinearLayout linear = (LinearLayout) findViewById(R.id.bar);
+				if(bar_show){
+					linear.setVisibility(View.VISIBLE);
+				}else{
+					linear.setVisibility(View.INVISIBLE);
+				}
+			}
+
+			@Override
+			public void onTouchDown() {
+				if(mTimer != null)
+					mTimer.cancel();
+			}
+		});
+		ImageButton display = (ImageButton) findViewById(R.id.display);
+		display.setOnClickListener(this);
 		mDecorView = getWindow().getDecorView();
 		hideSystemUI();
-		mTimer = new Timer();
-		mTimer.schedule(new MyTask(), 3000,3000);
 	}
+	
+	@Override
+	public void onClick(View view) {
+		switch(view.getId()){
+		case R.id.display:
+			mTimer = new Timer();
+			bar_show = !bar_show;
+			LinearLayout linear = (LinearLayout) findViewById(R.id.bar);
+			if(bar_show){
+				linear.setVisibility(View.VISIBLE);
+			}else{
+				linear.setVisibility(View.INVISIBLE);
+			}
+			mTimer.schedule(new MyTask(), 5000,5000);
+			break;
+		}
+	}
+	
 	class MyTask extends TimerTask{
 
 		@Override
