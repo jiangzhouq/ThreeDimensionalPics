@@ -18,8 +18,13 @@ package com.nostra13.example.universalimageloader;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -123,8 +128,62 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		display.setOnClickListener(this);
 		mDecorView = getWindow().getDecorView();
 		hideSystemUI();
+		
+		SensorManager sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		int sensorType = Sensor.TYPE_ACCELEROMETER;
+		sm.registerListener(myAccelerometerListener,sm.getDefaultSensor(sensorType),SensorManager.SENSOR_DELAY_NORMAL);
 	}
-	
+	private int mSensorCount = 0;
+	final SensorEventListener myAccelerometerListener = new SensorEventListener(){  
+        
+        //复写onSensorChanged方法  
+        public void onSensorChanged(SensorEvent sensorEvent){  
+            if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){  
+                //图解中已经解释三个值的含义  
+                float X_lateral = sensorEvent.values[0];  
+                float Y_longitudinal = sensorEvent.values[1];  
+                float Z_vertical = sensorEvent.values[2];  
+//                if(X_lateral > 5)
+//                	Log.d("qiqi","\n heading "+X_lateral); 
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE  ){
+                	if(Y_longitudinal > 3 ){
+                		if(X_lateral > 0){
+                			mSensorCount ++;
+                			if(mSensorCount == 10){
+                				mSensorCount = 0;
+                				pager.setCurrentItem(pager.getCurrentItem() + 1,true);
+                			}
+                		}else if(X_lateral < 0){
+                			mSensorCount ++;
+                			if(mSensorCount == 10){
+                				mSensorCount = 0;
+                				pager.setCurrentItem(pager.getCurrentItem() -1,true);
+                			}
+                		}
+                	}else if (Y_longitudinal < -3){
+                		if(X_lateral > 0){
+                			mSensorCount ++;
+                			if(mSensorCount == 10){
+                				mSensorCount = 0;
+                				pager.setCurrentItem(pager.getCurrentItem() - 1,true);
+                			}
+                		}else{
+                			mSensorCount ++;
+                			if(mSensorCount == 10){
+                				mSensorCount = 0;
+                				pager.setCurrentItem(pager.getCurrentItem() + 1,true);
+                			}
+                		}
+                	}
+                }
+            }  
+        }  
+        //复写onAccuracyChanged方法  
+        public void onAccuracyChanged(Sensor sensor , int accuracy){  
+            Log.d("qiqi", "onAccuracyChanged");  
+        }  
+    };  
+    
 	@Override
 	public void onClick(View view) {
 		switch(view.getId()){
