@@ -27,12 +27,14 @@ public class MyViewPager extends ViewPager{
 		if(event.getAction() == MotionEvent.ACTION_DOWN){
 			mTouchDownX = event.getX();
 			mTouchDownY = event.getY();
-			mToucher.onTouchDown();
+			if (null != mToucher)
+				mToucher.onTouchDown();
 		}
 		if(event.getAction() == MotionEvent.ACTION_UP){
 			
 			if(Math.abs(event.getX() - mTouchDownX) < 20 && Math.abs(event.getY() - mTouchDownY) < 20){
-				mToucher.onTouchUp();
+				if(null != mToucher)
+					mToucher.onTouchUp();
 			}
 		}
 		return super.onTouchEvent(event);

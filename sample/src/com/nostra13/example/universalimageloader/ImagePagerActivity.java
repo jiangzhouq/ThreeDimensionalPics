@@ -285,7 +285,6 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 				mHandler.sendEmptyMessage(0);
 			}
 		}
-		
 	}
 	@Override
 	protected void onDestroy() {
