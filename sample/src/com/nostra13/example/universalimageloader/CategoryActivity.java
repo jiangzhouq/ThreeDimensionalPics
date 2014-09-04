@@ -67,7 +67,7 @@ public class CategoryActivity extends FragmentActivity {
 			.displayer(new FadeInBitmapDisplayer(300))
 			.build();
 		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-			setContentView(R.layout.ac_image_pager_2);
+			setContentView(R.layout.ac_image_pager_no_actionbar);
 			ViewPager pager;
 			pager = (ViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
@@ -104,7 +104,7 @@ public class CategoryActivity extends FragmentActivity {
 		super.onConfigurationChanged(newConfig);
 		if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
 			ViewPager pager;
-			setContentView(R.layout.ac_image_pager_2);
+			setContentView(R.layout.ac_image_pager_no_actionbar);
 			pager = (ViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
 				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
