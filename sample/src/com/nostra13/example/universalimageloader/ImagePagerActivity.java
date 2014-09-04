@@ -291,7 +291,8 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		mTimer.cancel();
+		if(mTimer != null)
+			mTimer.cancel();
 	}
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
