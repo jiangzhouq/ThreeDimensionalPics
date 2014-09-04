@@ -71,17 +71,17 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	private static final String STATE_POSITION = "STATE_POSITION";
 	BluetoothAdapter mBluetoothAdapter;
 	DisplayImageOptions options;
-	private AcceptTask mAcceptTask;
+//	private AcceptTask mAcceptTask;
 	MyViewPager pager;
 	private View mDecorView;
 	private String[] mImageUrls;
 	private int mPagerPosition;
 	private Timer mTimer;
-	ImageButton blue;
-	private int blue_state = 0;
-	private final int STATE_BLUE_DISCONNECTED = 0;
-	private final int STATE_BLUE_CONNECTING = 1;
-	private final int STATE_BLUE_CONNECTED = 2;
+//	ImageButton blue;
+//	private int blue_state = 0;
+//	private final int STATE_BLUE_DISCONNECTED = 0;
+//	private final int STATE_BLUE_CONNECTING = 1;
+//	private final int STATE_BLUE_CONNECTED = 2;
 	private Handler mHandler= new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch(msg.what){
@@ -146,8 +146,8 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		});
 		ImageButton display = (ImageButton) findViewById(R.id.display);
 		display.setOnClickListener(this);
-		blue = (ImageButton) findViewById(R.id.bluetooth);
-		blue.setOnClickListener(this);
+//		blue = (ImageButton) findViewById(R.id.bluetooth);
+//		blue.setOnClickListener(this);
 		
 		mDecorView = getWindow().getDecorView();
 		hideSystemUI();
@@ -223,57 +223,57 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 			}
 			mTimer.schedule(new MyTask(), 5000,5000);
 			break;
-		case R.id.bluetooth:
-			switch(blue_state){
-			case STATE_BLUE_DISCONNECTED:
-				blue_state = STATE_BLUE_CONNECTING;
-				blue.setImageResource(R.drawable.blue_anim);
-				AnimationDrawable animationDrawable = (AnimationDrawable)blue.getDrawable();  
-	            animationDrawable.start();  
-	            
-
-	    		if (mBluetoothAdapter != null) {
-	    			if (!mBluetoothAdapter.isEnabled()) {
-	    			    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-	    			    startActivityForResult(enableBtIntent, 1);
-	    			}else{
-	    				Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-	    				// If there are paired devices
-	    				Log.d("qiqi", "pairedDevices.size():" + pairedDevices.size());
-	    				if (pairedDevices.size() > 0) {
-	    				    // Loop through paired devices
-	    				    for (BluetoothDevice device : pairedDevices) {
-	    				        // Add the name and address to an array adapter to show in a ListView
-	    				    	Log.d("qiqi", device.getName() + "=====" + device.getAddress());
-	    				    	mAcceptTask = new AcceptTask();
-	    				    	mAcceptTask.execute();
-	    				    }
-	    				}
-	    			}
-	    		}else{
-	    			
-	    		}
-				break;
-			case STATE_BLUE_CONNECTING:
-				blue_state = STATE_BLUE_DISCONNECTED;
-				blue.setImageResource(R.drawable.bluetooth_off);
-				if(null != mAcceptTask)
-				{
-					mAcceptTask.cancelSocket();
-					mAcceptTask.cancel(true);
-				}
-				break;
-			case STATE_BLUE_CONNECTED:
-				blue_state = STATE_BLUE_DISCONNECTED;
-				blue.setImageResource(R.drawable.bluetooth_off);
-				if(null != mAcceptTask)
-				{
-					mAcceptTask.cancelSocket();
-					mAcceptTask.cancel(true);
-				}
-				break;
-			}
-			break;
+//		case R.id.bluetooth:
+//			switch(blue_state){
+//			case STATE_BLUE_DISCONNECTED:
+//				blue_state = STATE_BLUE_CONNECTING;
+//				blue.setImageResource(R.drawable.blue_anim);
+//				AnimationDrawable animationDrawable = (AnimationDrawable)blue.getDrawable();  
+//	            animationDrawable.start();  
+//	            
+//
+//	    		if (mBluetoothAdapter != null) {
+//	    			if (!mBluetoothAdapter.isEnabled()) {
+//	    			    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//	    			    startActivityForResult(enableBtIntent, 1);
+//	    			}else{
+//	    				Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+//	    				// If there are paired devices
+//	    				Log.d("qiqi", "pairedDevices.size():" + pairedDevices.size());
+//	    				if (pairedDevices.size() > 0) {
+//	    				    // Loop through paired devices
+//	    				    for (BluetoothDevice device : pairedDevices) {
+//	    				        // Add the name and address to an array adapter to show in a ListView
+//	    				    	Log.d("qiqi", device.getName() + "=====" + device.getAddress());
+//	    				    	mAcceptTask = new AcceptTask();
+//	    				    	mAcceptTask.execute();
+//	    				    }
+//	    				}
+//	    			}
+//	    		}else{
+//	    			
+//	    		}
+//				break;
+//			case STATE_BLUE_CONNECTING:
+//				blue_state = STATE_BLUE_DISCONNECTED;
+//				blue.setImageResource(R.drawable.bluetooth_off);
+//				if(null != mAcceptTask)
+//				{
+//					mAcceptTask.cancelSocket();
+//					mAcceptTask.cancel(true);
+//				}
+//				break;
+//			case STATE_BLUE_CONNECTED:
+//				blue_state = STATE_BLUE_DISCONNECTED;
+//				blue.setImageResource(R.drawable.bluetooth_off);
+//				if(null != mAcceptTask)
+//				{
+//					mAcceptTask.cancelSocket();
+//					mAcceptTask.cancel(true);
+//				}
+//				break;
+//			}
+//			break;
 		}
 	}
 	
@@ -436,129 +436,129 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 	            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 	}
-	private class AcceptTask extends AsyncTask<Void, Integer, Boolean>{
-		private final BluetoothServerSocket mmServerSocket;
-		public void cancelSocket(){
-			try {
-	            mmServerSocket.close();
-	        } catch (IOException e) { }
-		}
-		public AcceptTask() {
-			BluetoothServerSocket tmp = null;
-	        try {
-	            // MY_UUID is the app's UUID string, also used by the client code
-	            tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("main", UUID.fromString("71f78e96-3024-11e4-89c4-a6c5e4d22fb7"));
-	        } catch (IOException e) { }
-	        mmServerSocket = tmp;
-	        Log.d("qiqi", "create acceptthread");
-		}
-		@Override
-		protected Boolean doInBackground(Void... params) {
-			BluetoothSocket socket = null;
-	        // Keep listening until exception occurs or a socket is returned
-	        Log.d("qiqi", "run()");
-	        while (true) {
-	            try {
-	            	Log.d("qiqi", "accetping socket");
-	                socket = mmServerSocket.accept();
-	                Log.d("qiqi", "accetping socket 2");
-	            } catch (IOException e) {
-	            	Log.d("qiqi", "" + e.toString());
-	                break;
-	            }
-	            if (socket != null) {
-	            	new ConnectedThread(socket).run();
-	                try {
-						mmServerSocket.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	                return true;
-	            }else{
-	            	Log.d("qiqi", "nul ==  socket");
-	            	return false;
-	            }
-	        }
-			return false;
-		}
-		@Override
-		protected void onPostExecute(Boolean result) {
-			super.onPostExecute(result);
-			if(result)
-			{
-				blue_state = STATE_BLUE_CONNECTED;
-				blue.setImageResource(R.drawable.bluetooth_on);
-			}
-		}
-	}
-	private class ConnectedThread extends Thread {
-	    private final BluetoothSocket mmSocket;
-	    private final InputStream mmInStream;
-	    private final OutputStream mmOutStream;
-	 
-	    public ConnectedThread(BluetoothSocket socket) {
-	        mmSocket = socket;
-	        InputStream tmpIn = null;
-	        OutputStream tmpOut = null;
-	 
-	        // Get the input and output streams, using temp objects because
-	        // member streams are final
-	        try {
-	            tmpIn = socket.getInputStream();
-	            tmpOut = socket.getOutputStream();
-	        } catch (IOException e) { }
-	 
-	        mmInStream = tmpIn;
-	        mmOutStream = tmpOut;
-	    }
-	 
-	    public void run() {
-	        byte[] buffer = new byte[1024];  // buffer store for the stream
-	        int bytes; // bytes returned from read()
-	 
-	        // Keep listening to the InputStream until an exception occurs
-	        Log.d("qiqi", "start receive thread");
-	        while (true) {
-	            try {
-	                // Read from the InputStream
-	                bytes = mmInStream.read(buffer);
-	                byte[] newBuffer = new byte[bytes];
-	                for(int i = 0; i < bytes; i++){
-	                	newBuffer[i] = buffer[i];
-	                }
-	                
-	                Log.d("qiqi", "hello received:" + new String(newBuffer, "UTF-8") + " bytes:" + bytes);
-	                if(new String(newBuffer, "UTF-8").equals("right")){
-	                	if(pager != null){
-	        				mHandler.sendEmptyMessage(0);
-	        			}
-	                }else if(new String(newBuffer, "UTF-8").equals("left")){
-	                	if(pager != null){
-	        				mHandler.sendEmptyMessage(1);
-	        			}
-	                }
-	                // Send the obtained bytes to the UI activity
-//	                mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
-//	                        .sendToTarget();
-	            } catch (IOException e) {
-	                break;
-	            }
-	        }
-	    }
-	 
-	    /* Call this from the main activity to send data to the remote device */
-	    public void write(byte[] bytes) {
-	        try {
-	            mmOutStream.write(bytes);
-	        } catch (IOException e) { }
-	    }
-	    /* Call this from the main activity to shutdown the connection */
-	    public void cancel() {
-	        try {
-	            mmSocket.close();
-	        } catch (IOException e) { }
-	    }
-	}
+//	private class AcceptTask extends AsyncTask<Void, Integer, Boolean>{
+//		private final BluetoothServerSocket mmServerSocket;
+//		public void cancelSocket(){
+//			try {
+//	            mmServerSocket.close();
+//	        } catch (IOException e) { }
+//		}
+//		public AcceptTask() {
+//			BluetoothServerSocket tmp = null;
+//	        try {
+//	            // MY_UUID is the app's UUID string, also used by the client code
+//	            tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("main", UUID.fromString("71f78e96-3024-11e4-89c4-a6c5e4d22fb7"));
+//	        } catch (IOException e) { }
+//	        mmServerSocket = tmp;
+//	        Log.d("qiqi", "create acceptthread");
+//		}
+//		@Override
+//		protected Boolean doInBackground(Void... params) {
+//			BluetoothSocket socket = null;
+//	        // Keep listening until exception occurs or a socket is returned
+//	        Log.d("qiqi", "run()");
+//	        while (true) {
+//	            try {
+//	            	Log.d("qiqi", "accetping socket");
+//	                socket = mmServerSocket.accept();
+//	                Log.d("qiqi", "accetping socket 2");
+//	            } catch (IOException e) {
+//	            	Log.d("qiqi", "" + e.toString());
+//	                break;
+//	            }
+//	            if (socket != null) {
+//	            	new ConnectedThread(socket).run();
+//	                try {
+//						mmServerSocket.close();
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//	                return true;
+//	            }else{
+//	            	Log.d("qiqi", "nul ==  socket");
+//	            	return false;
+//	            }
+//	        }
+//			return false;
+//		}
+//		@Override
+//		protected void onPostExecute(Boolean result) {
+//			super.onPostExecute(result);
+//			if(result)
+//			{
+//				blue_state = STATE_BLUE_CONNECTED;
+//				blue.setImageResource(R.drawable.bluetooth_on);
+//			}
+//		}
+//	}
+//	private class ConnectedThread extends Thread {
+//	    private final BluetoothSocket mmSocket;
+//	    private final InputStream mmInStream;
+//	    private final OutputStream mmOutStream;
+//	 
+//	    public ConnectedThread(BluetoothSocket socket) {
+//	        mmSocket = socket;
+//	        InputStream tmpIn = null;
+//	        OutputStream tmpOut = null;
+//	 
+//	        // Get the input and output streams, using temp objects because
+//	        // member streams are final
+//	        try {
+//	            tmpIn = socket.getInputStream();
+//	            tmpOut = socket.getOutputStream();
+//	        } catch (IOException e) { }
+//	 
+//	        mmInStream = tmpIn;
+//	        mmOutStream = tmpOut;
+//	    }
+//	 
+//	    public void run() {
+//	        byte[] buffer = new byte[1024];  // buffer store for the stream
+//	        int bytes; // bytes returned from read()
+//	 
+//	        // Keep listening to the InputStream until an exception occurs
+//	        Log.d("qiqi", "start receive thread");
+//	        while (true) {
+//	            try {
+//	                // Read from the InputStream
+//	                bytes = mmInStream.read(buffer);
+//	                byte[] newBuffer = new byte[bytes];
+//	                for(int i = 0; i < bytes; i++){
+//	                	newBuffer[i] = buffer[i];
+//	                }
+//	                
+//	                Log.d("qiqi", "hello received:" + new String(newBuffer, "UTF-8") + " bytes:" + bytes);
+//	                if(new String(newBuffer, "UTF-8").equals("right")){
+//	                	if(pager != null){
+//	        				mHandler.sendEmptyMessage(0);
+//	        			}
+//	                }else if(new String(newBuffer, "UTF-8").equals("left")){
+//	                	if(pager != null){
+//	        				mHandler.sendEmptyMessage(1);
+//	        			}
+//	                }
+//	                // Send the obtained bytes to the UI activity
+////	                mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
+////	                        .sendToTarget();
+//	            } catch (IOException e) {
+//	                break;
+//	            }
+//	        }
+//	    }
+//	 
+//	    /* Call this from the main activity to send data to the remote device */
+//	    public void write(byte[] bytes) {
+//	        try {
+//	            mmOutStream.write(bytes);
+//	        } catch (IOException e) { }
+//	    }
+//	    /* Call this from the main activity to shutdown the connection */
+//	    public void cancel() {
+//	        try {
+//	            mmSocket.close();
+//	        } catch (IOException e) { }
+//	    }
+//	}
 	
 }

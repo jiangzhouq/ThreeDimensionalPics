@@ -15,12 +15,12 @@
         android:orientation="horizontal"
         android:gravity="right|center_vertical"
         android:background="#61616161">
-        <ImageButton 
+       <!--  <ImageButton 
             android:id="@+id/bluetooth"
             android:layout_width="48dp" 
             android:layout_height="48dp"
             android:src="@drawable/bluetooth_off"
-            />
+            /> -->
         <ImageButton 
             android:id="@+id/display"
             android:layout_width="48dp" 
