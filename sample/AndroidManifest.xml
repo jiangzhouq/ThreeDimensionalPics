@@ -34,8 +34,7 @@
             android:label="@string/ac_name_image_list" />
         <activity
             android:name=".ImageGridActivity"
-            android:label="@string/ac_name_image_grid" 
-            android:configChanges="orientation|screenSize"/>
+            android:label="@string/ac_name_image_grid" />
         <activity
             android:name=".ImagePagerActivity"
             android:label="@string/ac_name_image_pager" 
