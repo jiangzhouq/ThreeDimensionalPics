@@ -3,6 +3,7 @@ package com.nostra13.example.universalimageloader;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +11,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 public class ModeChoiceActivity extends Activity implements OnClickListener{
 	
 	private View mDecorView;
+	DisplayImageOptions options;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -23,8 +29,21 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		}else{
 			setContentView(R.layout.mc_portrait);
 		}
+		options = new DisplayImageOptions.Builder()
+		.showImageForEmptyUri(R.drawable.ic_empty)
+		.showImageOnFail(R.drawable.ic_error)
+		.resetViewBeforeLoading(true)
+		.cacheOnDisk(true)
+		.imageScaleType(ImageScaleType.EXACTLY)
+		.bitmapConfig(Bitmap.Config.RGB_565)
+		.considerExifParams(true)
+		.displayer(new FadeInBitmapDisplayer(300))
+		.build();
 		setListener();
 		hideSystemUI();
+		ImageView bg = (ImageView) findViewById(R.id.bg);
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.displayImage("http://jiangzhoumigs-jiangzhoumigs.stor.sinaapp.com/original/20140909bg.jpg",bg, options);
 	}
 	private void setListener(){
 		Button view1 = (Button) findViewById(R.id.honglan);
