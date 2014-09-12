@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.jiangzhou.tdp;
 
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -27,7 +27,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
-import com.nostra13.example.universalimageloader.widget.VerticalViewPager;
+import com.jiangzhou.tdp.widget.VerticalViewPager;
+import com.jiangzhou.tdp.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;

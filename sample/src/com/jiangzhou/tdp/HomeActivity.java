@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.jiangzhou.tdp;
 
-import static com.nostra13.example.universalimageloader.Constants.IMAGES;
+import static com.jiangzhou.tdp.Constants.IMAGES;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,7 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.jiangzhou.tdp.Constants.Extra;
 import com.nostra13.universalimageloader.utils.L;
 
 /**

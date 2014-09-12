@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.jiangzhou.tdp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,7 +26,8 @@ import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 
-import com.nostra13.example.universalimageloader.Constants.Extra;
+import com.jiangzhou.tdp.Constants.Extra;
+import com.jiangzhou.tdp.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 /**

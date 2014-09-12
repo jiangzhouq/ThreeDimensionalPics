@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.jiangzhou.tdp;
+
+import com.jiangzhou.tdp.R;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -361,7 +363,7 @@ public final class Constants {
 	}
 	
 	public static class Extra {
-		public static final String IMAGES = "com.nostra13.example.universalimageloader.IMAGES";
-		public static final String IMAGE_POSITION = "com.nostra13.example.universalimageloader.IMAGE_POSITION";
+		public static final String IMAGES = "com.jiangzhou.tdp.IMAGES";
+		public static final String IMAGE_POSITION = "com.jiangzhou.tdp.IMAGE_POSITION";
 	}
 }

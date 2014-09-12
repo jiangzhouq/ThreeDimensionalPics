@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader.widget;
+package com.jiangzhou.tdp.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -21,14 +21,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.RemoteViews;
-import com.nostra13.example.universalimageloader.R;
-import com.nostra13.example.universalimageloader.UILApplication;
+
+import com.jiangzhou.tdp.UILApplication;
+import com.jiangzhou.tdp.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
-import static com.nostra13.example.universalimageloader.Constants.IMAGES;
+import static com.jiangzhou.tdp.Constants.IMAGES;
 
 /**
  * Example widget provider

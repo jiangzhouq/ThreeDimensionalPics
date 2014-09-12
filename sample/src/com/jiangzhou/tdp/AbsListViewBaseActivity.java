@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.jiangzhou.tdp;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AbsListView;
 
+import com.jiangzhou.tdp.R;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 /**

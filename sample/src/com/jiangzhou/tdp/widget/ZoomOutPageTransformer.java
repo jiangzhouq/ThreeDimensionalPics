@@ -1,4 +1,4 @@
-package com.nostra13.example.universalimageloader.widget;
+package com.jiangzhou.tdp.widget;
 
 import android.view.View;
 import android.support.v4.view.ViewPager;

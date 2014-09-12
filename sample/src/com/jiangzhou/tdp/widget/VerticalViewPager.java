@@ -1,4 +1,4 @@
-package com.nostra13.example.universalimageloader.widget;
+package com.jiangzhou.tdp.widget;
 
 import android.content.Context;
 import android.content.res.Resources;

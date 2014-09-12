@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.jiangzhou.tdp;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,10 +53,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.nostra13.example.universalimageloader.Constants.Extra;
-import com.nostra13.example.universalimageloader.widget.MyViewPager;
-import com.nostra13.example.universalimageloader.widget.MyViewPager.Toucher;
-import com.nostra13.example.universalimageloader.widget.ZoomOutPageTransformer;
+import com.jiangzhou.tdp.Constants.Extra;
+import com.jiangzhou.tdp.widget.MyViewPager;
+import com.jiangzhou.tdp.widget.ZoomOutPageTransformer;
+import com.jiangzhou.tdp.widget.MyViewPager.Toucher;
+import com.jiangzhou.tdp.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;

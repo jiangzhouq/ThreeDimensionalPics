@@ -3,7 +3,7 @@
     android:id="@+id/relative"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <com.nostra13.example.universalimageloader.widget.MyViewPager
+    <com.jiangzhou.tdp.widget.MyViewPager
     android:id="@+id/pager"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" />

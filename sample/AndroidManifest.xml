@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nostra13.example.universalimageloader"
+    package="com.jiangzhou.tdp"
     android:versionCode="38"
     android:versionName="1.9.3" >
 
@@ -15,11 +15,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <application
-        android:name=".UILApplication"
+        android:name="com.jiangzhou.tdp.UILApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".ModeChoiceActivity"
+            android:name="com.jiangzhou.tdp.ModeChoiceActivity"
             android:label="@string/app_name" 
             android:configChanges="orientation|screenSize">
             <intent-filter>
@@ -28,23 +28,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CategoryActivity"/>
+            android:name="com.jiangzhou.tdp.CategoryActivity"/>
         <activity
-            android:name=".ImageListActivity"
+            android:name="com.jiangzhou.tdp.ImageListActivity"
             android:label="@string/ac_name_image_list" />
         <activity
-            android:name=".ImageGridActivity"
+            android:name="com.jiangzhou.tdp.ImageGridActivity"
             android:label="@string/ac_name_image_grid" />
         <activity
-            android:name=".ImagePagerActivity"
+            android:name="com.jiangzhou.tdp.ImagePagerActivity"
             android:label="@string/ac_name_image_pager" 
             android:configChanges="orientation|screenSize"/>
         <activity
-            android:name=".ImageGalleryActivity"
+            android:name="com.jiangzhou.tdp.ImageGalleryActivity"
             android:label="@string/ac_name_image_gallery" />
 
         <!-- Widget -->
-        <receiver android:name=".widget.UILWidgetProvider" >
+        <receiver android:name="com.jiangzhou.tdp.widget.UILWidgetProvider" >
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider" />
@@ -53,6 +53,7 @@
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
         </receiver>
+        <provider android:name="TDPProvider" android:authorities="com.jiangzhou.tdp" ></provider>
     </application>
 
 </manifest>
