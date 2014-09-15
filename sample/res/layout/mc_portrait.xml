@@ -16,10 +16,12 @@
 			android:background="@android:color/transparent"
 			android:scaleType="centerCrop"/>
         <LinearLayout
+            android:id="@+id/menus"
             android:layout_width="fill_parent"
             android:layout_height="50dp" 
             android:layout_alignParentBottom="true"
             android:background="#88000000"
+            android:visibility="invisible"
             >
             <Button
                 android:id="@+id/honglan"

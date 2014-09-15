@@ -25,11 +25,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.UrlQuerySanitizer.ValueSanitizer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,6 +41,17 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 	
 	private View mDecorView;
 	DisplayImageOptions options;
+	private Handler mHandler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch(msg.what){
+			case 0:
+				LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
+				menus.setVisibility(View.VISIBLE);
+				setListener();
+				break;
+			}
+		};
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -59,7 +72,6 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		.considerExifParams(true)
 		.displayer(new FadeInBitmapDisplayer(300))
 		.build();
-		setListener();
 		hideSystemUI();
 		ImageView bg = (ImageView) findViewById(R.id.bg);
 		ImageLoader imageLoader = ImageLoader.getInstance();
@@ -219,6 +231,8 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 									jsono.getString("name"));
 							value.put(Pic.COLUMN_DEFAULT_URL,
 									jsono.getString("url"));
+							value.put(Pic.COLUMN_DEFALUT_ISTITLE,
+									jsono.getString("istitle"));
 							totalValues.add(value);
 						}
 						insert(totalValues);
@@ -272,11 +286,11 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		} catch (Exception e) {
 
 		}
-
 		finally {
 			// 结束事务
 			db.endTransaction();
 		}
+		mHandler.sendEmptyMessage(0);
 		db.close();
 		return rowUri;
 	}

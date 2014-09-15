@@ -32,7 +32,8 @@ public class TDPDbHelper extends SQLiteOpenHelper {
 				+ Pic.COLUMN_DEFAULT_MODE + " TEXT,"
 				+ Pic.COLUMN_DEFAULT_CATEGORY + " TEXT,"
 				+ Pic.COLUMN_DEFAULT_NAME + " TEXT,"
-				+ Pic.COLUMN_DEFAULT_URL + " TEXT"
+				+ Pic.COLUMN_DEFAULT_URL + " TEXT,"
+				+ Pic.COLUMN_DEFALUT_ISTITLE + " TEXT"
 				+ ")");
 	}
 

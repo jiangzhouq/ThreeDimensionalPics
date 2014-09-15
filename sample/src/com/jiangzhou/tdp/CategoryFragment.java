@@ -2,6 +2,7 @@ package com.jiangzhou.tdp;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,17 +34,18 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 	.displayer(new FadeInBitmapDisplayer(300))
 	.build();
 	
-	private String[] mImages;
+	private Cursor mCursor;
 	private int[] mTitles;
 	private int mDirect;
 	private int mModeChoice = 0;
-	public static CategoryFragment newInstance(int content , int[] titles, String[] images, int direct, int mode_choice) {
+	public static CategoryFragment newInstance(int content , int[] titles, Cursor cur, int direct, int mode_choice) {
 		CategoryFragment fragment = new CategoryFragment();
 		fragment.mDirect = direct;
-		fragment.mImages = images;
+		fragment.mCursor = cur;
 		fragment.mContent = content;
 		fragment.mModeChoice = mode_choice;
 		fragment.mTitles = titles;
+		Log.d("qiqi", "cur.getCount():" + cur.getCount());
 		return fragment;
 	}
 	private int  mContent = 0;
@@ -66,10 +68,12 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 				R.id.category4,
 				R.id.category5};
 		for (int i = 0; i < imageViewIds.length; i++){
-			if((mContent * imageViewIds.length + i) < mImages.length){
+			if((mContent * imageViewIds.length + i) < mCursor.getCount()){
 				ImageView imageView = (ImageView) layout.findViewById(imageViewIds[i]);
 				imageView.setTag(mContent*imageViewIds.length + i);
-				imageLoader.displayImage(mImages[mContent*imageViewIds.length + i], imageView, options);
+				mCursor.moveToPosition(mContent*imageViewIds.length + i);
+				Log.d("qiqi", mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_URL)));
+				imageLoader.displayImage("http://qijiangzhou.com/" + mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_URL)), imageView, options);
 				imageView.setOnClickListener(this);
 			}
 		}

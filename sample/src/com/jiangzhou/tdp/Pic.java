@@ -12,16 +12,16 @@ public class Pic {
 	public final static String COLUMN_DEFAULT_CATEGORY = "default_category";
 	public final static String COLUMN_DEFAULT_NAME = "default_name";
 	public final static String COLUMN_DEFAULT_URL = "default_url";
-	
+	public final static String COLUMN_DEFALUT_ISTITLE = "default_istitle";
 	public final static Uri CONTENT_URI = Uri.parse("content://"
 			+ TDPProvider.URI_AUTHORITY + "/" + TABLE_NAME);
 
 	public long mId;
-	public int mDefaultMode;
-	public int mDefaultCategory;
+	public String mDefaultMode;
+	public String mDefaultCategory;
 	public String mDefaultName;
 	public String mDefaultUrl;
-	
+	public String mDefaultIsTitle;
 	public ContentValues toContentValues() {
 		ContentValues values = new ContentValues();
 		if(mId != 0) {
@@ -31,6 +31,7 @@ public class Pic {
 		values.put(COLUMN_DEFAULT_CATEGORY, mDefaultCategory);
 		values.put(COLUMN_DEFAULT_NAME, mDefaultName);
 		values.put(COLUMN_DEFAULT_URL, mDefaultUrl);
+		values.put(COLUMN_DEFALUT_ISTITLE, mDefaultIsTitle);
 		return values;
 	}
 }

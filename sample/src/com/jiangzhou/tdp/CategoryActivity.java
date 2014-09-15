@@ -16,6 +16,7 @@
 package com.jiangzhou.tdp;
 
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,15 +45,13 @@ public class CategoryActivity extends FragmentActivity {
 	private ImagePagerAdapter mAdapter;
 	private View mDecorView;
 	int pagerPosition = 0;
-	private String[] imageUrls = Constants.IMAGES;
+	private Cursor mCursor;
 	private int mode_choice = 0;
 	private int[] mTitles = Constants.TITLES_HONGLAN;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		imageUrls = getIntent().getStringArrayExtra(Constants.CATEGORY_IMAGE_URLS_NAME);
-		mode_choice = getIntent().getIntExtra(Constants.MODE_CHOICE_NAME, Constants.MODE_CHOLICE_HONGLAN);
 		if (savedInstanceState != null) {
 			pagerPosition = savedInstanceState.getInt(STATE_POSITION);
 		}
@@ -72,13 +71,15 @@ public class CategoryActivity extends FragmentActivity {
 			ViewPager pager;
 			pager = (ViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
-				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"2","红蓝"}, null);
+				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_HONGLAN;
 			}else{
-				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES_LAND;
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"2","左右"}, null);
+				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_ZUOYOU;
 			}
-			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_LANDSCAPE);
+			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}else{
@@ -86,13 +87,15 @@ public class CategoryActivity extends FragmentActivity {
 			setContentView(R.layout.ac_image_pager);
 			pager = (VerticalViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
-				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES;
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","红蓝"}, null);
+				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_HONGLAN;
 			}else{
-				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES;
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","红蓝"}, null);
+				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_ZUOYOU;
 			}
-			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_PORTRAIT);
+			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}
@@ -108,13 +111,15 @@ public class CategoryActivity extends FragmentActivity {
 			setContentView(R.layout.ac_image_pager_no_actionbar);
 			pager = (ViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
-				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES_LAND;
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"2","红蓝"}, null);
+				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_HONGLAN;
 			}else{
-				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES_LAND;
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"2","左右"}, null);
+				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_ZUOYOU;
 			}
-			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_LANDSCAPE);
+			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}else{
@@ -122,13 +127,15 @@ public class CategoryActivity extends FragmentActivity {
 			setContentView(R.layout.ac_image_pager);
 			pager = (VerticalViewPager) findViewById(R.id.pager);
 			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
-				imageUrls = Constants.IMAGES_HONGLAN_CATEGORIES;
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","红蓝"}, null);
+				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_HONGLAN;
 			}else{
-				imageUrls = Constants.IMAGES_ZUOYOU_CATEGORIES;
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","左右"}, null);
+				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_ZUOYOU;
 			}
-			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageUrls,Configuration.ORIENTATION_PORTRAIT);
+			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}
@@ -140,11 +147,11 @@ public class CategoryActivity extends FragmentActivity {
 
 	private class ImagePagerAdapter extends FragmentPagerAdapter {
 
-		private String[] mImages;
+		private Cursor cursor;
 		private int mDirect;
-		public ImagePagerAdapter(FragmentManager fm ,String[] images, int direct) {
+		public ImagePagerAdapter(FragmentManager fm ,Cursor cur, int direct) {
 			super(fm);
-			mImages = images;
+			cursor = cur;
 			mDirect = direct;
 			Log.d("qiqi", "new pageadapter");
 		}
@@ -153,13 +160,13 @@ public class CategoryActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			// TODO Auto-generated method stub
 			Log.d("qiqi", "mDirect:" + mDirect);
-			return CategoryFragment.newInstance(position ,mTitles, mImages , mDirect, mode_choice);
+			return CategoryFragment.newInstance(position ,mTitles, cursor , mDirect, mode_choice);
 		}
 
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return mImages.length/5 + 1;
+			return cursor.getCount()/5 + 1;
 		}
 	}
 	
