@@ -55,7 +55,7 @@ public class CategoryActivity extends FragmentActivity {
 		if (savedInstanceState != null) {
 			pagerPosition = savedInstanceState.getInt(STATE_POSITION);
 		}
-
+		mode_choice = getIntent().getExtras().getInt(Constants.MODE_CHOICE_NAME);
 		options = new DisplayImageOptions.Builder()
 			.showImageForEmptyUri(R.drawable.ic_empty)
 			.showImageOnFail(R.drawable.ic_error)
@@ -91,7 +91,7 @@ public class CategoryActivity extends FragmentActivity {
 				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_HONGLAN;
 			}else{
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","红蓝"}, null);
+				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","左右"}, null);
 				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
 				mTitles = Constants.TITLES_ZUOYOU;
 			}

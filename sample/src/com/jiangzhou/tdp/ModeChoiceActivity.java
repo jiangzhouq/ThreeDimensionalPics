@@ -84,7 +84,11 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 //		value.put(Page.COLUMN_DEFAULT_URL, "zhangwanglitishidai");
 //		value.put(Page.COLUMN_DEFAULT_CTIME, "20140901");
 //		getContentResolver().insert(Page.CONTENT_URI, value);
-		startGetInfo();
+		
+//		startGetInfo();
+		LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
+		menus.setVisibility(View.VISIBLE);
+		setListener();
 	}
 	private void setListener(){
 		Button view1 = (Button) findViewById(R.id.honglan);
