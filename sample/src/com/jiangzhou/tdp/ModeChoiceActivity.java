@@ -17,7 +17,10 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -85,10 +88,10 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 //		value.put(Page.COLUMN_DEFAULT_CTIME, "20140901");
 //		getContentResolver().insert(Page.CONTENT_URI, value);
 		
-//		startGetInfo();
-		LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
-		menus.setVisibility(View.VISIBLE);
-		setListener();
+		startGetInfo();
+//		LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
+//		menus.setVisibility(View.VISIBLE);
+//		setListener();
 	}
 	private void setListener(){
 		Button view1 = (Button) findViewById(R.id.honglan);
@@ -217,6 +220,28 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 					Log.d("qiqi", strResult1);
 					ArrayList<ContentValues> totalValues = new ArrayList<ContentValues>();
 					try {
+						//date
+						String data3 = jsonObject1.getString("date");
+						JSONObject jsono2 = new JSONObject(data3);
+						String nDate = jsono2.getString("time");
+						SharedPreferences sharedData = getSharedPreferences("qiqi", Context.MODE_PRIVATE);
+						String oDate = sharedData.getString("get_time", "");
+						if(nDate.equals(oDate)){
+							mHandler.sendEmptyMessage(0);
+							if (Constants.LOG_ENABLE) {
+								Log.d("qiqi", "data is same ,return.");
+							}
+							return;
+						}
+						if (Constants.LOG_ENABLE) {
+							Log.d("qiqi", "data not same, download.");
+						}
+						getContentResolver().delete(Pic.CONTENT_URI, null, null);
+						getContentResolver().delete(Page.CONTENT_URI, null, null);
+						Editor editor = sharedData.edit();
+						editor.putString("get_time", nDate);
+						editor.commit();
+						//pics
 						String data = jsonObject1.getString("pics");
 						JSONArray jarr1 = new JSONArray(data);
 						for (int i = 0; i < jarr1.length(); i++) {
@@ -240,18 +265,17 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 							totalValues.add(value);
 						}
 						insert(totalValues);
-						
+						//first page
 						String data2 = jsonObject1.getString("page");
 						JSONObject jsono = new JSONObject(data2);
-
-							ContentValues value = new ContentValues();
-							value.put(Page.COLUMN_DEFAULT_NAME,
-									jsono.getString("name"));
-							value.put(Page.COLUMN_DEFAULT_URL,
-									jsono.getString("url"));
-							value.put(Page.COLUMN_DEFAULT_CTIME,
-									jsono.getString("ctime"));
-							getContentResolver().insert(Page.CONTENT_URI, value);
+						ContentValues value = new ContentValues();
+						value.put(Page.COLUMN_DEFAULT_NAME,
+								jsono.getString("name"));
+						value.put(Page.COLUMN_DEFAULT_URL,
+								jsono.getString("url"));
+						value.put(Page.COLUMN_DEFAULT_CTIME,
+								jsono.getString("ctime"));
+						getContentResolver().insert(Page.CONTENT_URI, value);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

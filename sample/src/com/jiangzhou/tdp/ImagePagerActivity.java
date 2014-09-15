@@ -303,7 +303,7 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	}
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-//		outState.putInt(STATE_POSITION, pager.getCurrentItem());
+		outState.putInt(STATE_POSITION, pager.getCurrentItem());
 	}
 
 	private class ImagePagerAdapter extends PagerAdapter {
