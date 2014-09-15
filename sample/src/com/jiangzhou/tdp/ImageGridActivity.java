@@ -15,14 +15,16 @@
  *******************************************************************************/
 package com.jiangzhou.tdp;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -30,11 +32,9 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.jiangzhou.tdp.Constants.Extra;
-import com.jiangzhou.tdp.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
@@ -45,8 +45,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
  */
 public class ImageGridActivity extends AbsListViewBaseActivity {
 
-	String[] imageUrls;
-
+	ArrayList<String> imageUrls = new ArrayList<String>();
 	DisplayImageOptions options;
 
 	private View mDecorView;
@@ -56,7 +55,14 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.ac_image_grid);
-		imageUrls = getIntent().getStringArrayExtra(Constants.IMAGES_LIGHT);
+		String[] sArgs = getIntent().getStringArrayExtra(Constants.IMAGES_LIGHT);
+		Cursor cur = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFAULT_MODE + " = ? and " + Pic.COLUMN_DEFAULT_CATEGORY + " = ? and " + Pic.COLUMN_DEFALUT_ISTITLE + " = ?", sArgs, null);
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", "cur.getCount:" + cur.getCount() + "");
+		}
+		while(cur.moveToNext()){
+			imageUrls.add(cur.getString(cur.getColumnIndex(Pic.COLUMN_DEFAULT_URL)));
+		}
 		mDecorView = getWindow().getDecorView();
 		hideSystemUI();
 		options = new DisplayImageOptions.Builder()
@@ -86,7 +92,9 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 
 	private void startImagePagerActivity(int position) {
 		Intent intent = new Intent(this, ImagePagerActivity.class);
-		intent.putExtra(Extra.IMAGES, imageUrls);
+		String[] urls = new String[]{};
+		urls = imageUrls.toArray(urls);
+		intent.putExtra(Extra.IMAGES, urls);
 		intent.putExtra(Extra.IMAGE_POSITION, position);
 		startActivity(intent);
 	}
@@ -99,7 +107,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 	public class ImageAdapter extends BaseAdapter {
 		@Override
 		public int getCount() {
-			return imageUrls.length;
+			return imageUrls.size();
 		}
 
 		@Override
@@ -131,7 +139,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 				holder = (ViewHolder) view.getTag();
 			}
 
-			imageLoader.displayImage(imageUrls[position], holder.imageView, options, new SimpleImageLoadingListener() {
+			imageLoader.displayImage("http://qijiangzhou.com/" + imageUrls.get(position), holder.imageView, options, new SimpleImageLoadingListener() {
 										 @Override
 										 public void onLoadingStarted(String imageUri, View view) {
 											 holder.progressBar.setProgress(0);

@@ -67,16 +67,6 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 				R.id.category3,
 				R.id.category4,
 				R.id.category5};
-		for (int i = 0; i < imageViewIds.length; i++){
-			if((mContent * imageViewIds.length + i) < mCursor.getCount()){
-				ImageView imageView = (ImageView) layout.findViewById(imageViewIds[i]);
-				imageView.setTag(mContent*imageViewIds.length + i);
-				mCursor.moveToPosition(mContent*imageViewIds.length + i);
-				Log.d("qiqi", mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_URL)));
-				imageLoader.displayImage("http://qijiangzhou.com/" + mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_URL)), imageView, options);
-				imageView.setOnClickListener(this);
-			}
-		}
 		int[] titleIds = new int[]{
 				R.id.title1,
 				R.id.title2,
@@ -84,12 +74,20 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 				R.id.title4,
 				R.id.title5,
 		};
-		for (int i = 0; i < titleIds.length; i++){
-			if((mContent * titleIds.length + i) < mTitles.length){
+		for (int i = 0; i < imageViewIds.length; i++){
+			if((mContent * imageViewIds.length + i) < mCursor.getCount()){
+				ImageView imageView = (ImageView) layout.findViewById(imageViewIds[i]);
 				TextView text = (TextView) layout.findViewById(titleIds[i]);
-				text.setText(mTitles[mContent * titleIds.length + i]);
+				mCursor.moveToPosition(mContent*imageViewIds.length + i);
+				String cName = mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_CATEGORY));
+				text.setText(cName);
+				Log.d("qiqi", mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_URL)));
+				imageView.setTag(cName);
+				imageLoader.displayImage("http://qijiangzhou.com/" + mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_URL)), imageView, options);
+				imageView.setOnClickListener(this);
 			}
 		}
+
 		return layout;
 	}
 
@@ -105,15 +103,13 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 			Log.d("qiqi", view.getTag() + "");
 		}
 		if(mModeChoice == Constants.MODE_CHOLICE_HONGLAN){
-			String[] imageUrls = Constants.getHonglanLightImages()[Integer.valueOf(view.getTag().toString())];
 			Intent intent = new Intent(getActivity(), ImageGridActivity.class);
-			intent.putExtra(Constants.IMAGES_LIGHT, imageUrls);
+			intent.putExtra(Constants.IMAGES_LIGHT, new String[]{"红蓝",(String)view.getTag(),"0"});
 			getActivity().startActivity(intent);
 			
 		}else{
-			String[] imageUrls = Constants.getZuoyouLightImages()[Integer.valueOf(view.getTag().toString())];
 			Intent intent = new Intent(getActivity(), ImageGridActivity.class);
-			intent.putExtra(Constants.IMAGES_LIGHT, imageUrls);
+			intent.putExtra(Constants.IMAGES_LIGHT,  new String[]{"左右",(String)view.getTag(),"0"});
 			getActivity().startActivity(intent);
 		}
 	}
