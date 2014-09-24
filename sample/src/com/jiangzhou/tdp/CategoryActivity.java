@@ -47,7 +47,6 @@ public class CategoryActivity extends FragmentActivity {
 	int pagerPosition = 0;
 	private Cursor mCursor;
 	private int mode_choice = 0;
-	private int[] mTitles = Constants.TITLES_HONGLAN;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,15 +69,7 @@ public class CategoryActivity extends FragmentActivity {
 			setContentView(R.layout.ac_image_pager_no_actionbar);
 			ViewPager pager;
 			pager = (ViewPager) findViewById(R.id.pager);
-			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"2","红蓝"}, null);
-				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
-				mTitles = Constants.TITLES_HONGLAN;
-			}else{
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"2","左右"}, null);
-				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
-				mTitles = Constants.TITLES_ZUOYOU;
-			}
+			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
@@ -86,15 +77,7 @@ public class CategoryActivity extends FragmentActivity {
 			VerticalViewPager pager;
 			setContentView(R.layout.ac_image_pager);
 			pager = (VerticalViewPager) findViewById(R.id.pager);
-			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","红蓝"}, null);
-				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
-				mTitles = Constants.TITLES_HONGLAN;
-			}else{
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","左右"}, null);
-				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
-				mTitles = Constants.TITLES_ZUOYOU;
-			}
+			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
@@ -110,15 +93,7 @@ public class CategoryActivity extends FragmentActivity {
 			ViewPager pager;
 			setContentView(R.layout.ac_image_pager_no_actionbar);
 			pager = (ViewPager) findViewById(R.id.pager);
-			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"2","红蓝"}, null);
-				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
-				mTitles = Constants.TITLES_HONGLAN;
-			}else{
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"2","左右"}, null);
-				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
-				mTitles = Constants.TITLES_ZUOYOU;
-			}
+			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
@@ -126,15 +101,7 @@ public class CategoryActivity extends FragmentActivity {
 			VerticalViewPager pager;
 			setContentView(R.layout.ac_image_pager);
 			pager = (VerticalViewPager) findViewById(R.id.pager);
-			if(mode_choice == Constants.MODE_CHOLICE_HONGLAN){
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","红蓝"}, null);
-				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
-				mTitles = Constants.TITLES_HONGLAN;
-			}else{
-				mCursor = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFALUT_ISTITLE + " = ? and " + Pic.COLUMN_DEFAULT_MODE +" = ?", new String[]{"1","左右"}, null);
-				Log.d("qiqi", "mCursor.getcount():" + mCursor.getCount());
-				mTitles = Constants.TITLES_ZUOYOU;
-			}
+			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
@@ -160,7 +127,7 @@ public class CategoryActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			// TODO Auto-generated method stub
 			Log.d("qiqi", "mDirect:" + mDirect);
-			return CategoryFragment.newInstance(position ,mTitles, cursor , mDirect, mode_choice);
+			return CategoryFragment.newInstance(position , cursor , mDirect, mode_choice);
 		}
 
 		@Override

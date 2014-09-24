@@ -104,12 +104,10 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		Intent intent = new Intent(this,CategoryActivity.class);
 		switch(v.getId()){
 		case R.id.honglan:
-			intent.putExtra(Constants.CATEGORY_IMAGE_URLS_NAME, Constants.IMAGES_HONGLAN_CATEGORIES);
 			intent.putExtra(Constants.MODE_CHOICE_NAME, Constants.MODE_CHOLICE_HONGLAN);
 			startActivity(intent);
 			break;
 		case R.id.zuoyou:
-			intent.putExtra(Constants.CATEGORY_IMAGE_URLS_NAME, Constants.IMAGES_ZUOYOU_CATEGORIES);
 			intent.putExtra(Constants.MODE_CHOICE_NAME, Constants.MODE_CHOLICE_ZUOYOU);
 			startActivity(intent);
 			break;
@@ -165,128 +163,180 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 	            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 	            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 	}
-	
-	private void startGetInfo() {
-		Runnable getRun = new Runnable() {
-
-			@Override
-			public void run() {
-				DefaultHttpClient client1 = new DefaultHttpClient();
-				/** NameValuePair是传送给服务器的请求参数 param.get("name") **/
-
-				UrlEncodedFormEntity entity1 = null;
-
-				/** 新建一个get请求 **/
-				HttpGet get = new HttpGet(
-						"http://106.186.22.172:12341?name=qiqi");
-				HttpResponse response1 = null;
-				String strResult1 = "";
+	Runnable getRun = new Runnable() {
+		@Override
+		public void run() {
+			DefaultHttpClient client = new DefaultHttpClient();
+			/** NameValuePair是传送给服务器的请求参数 param.get("name") **/
+			/** 新建一个get请求 **/
+			HttpGet getTime = new HttpGet("http://vrfessor.com:12341/?action=1");
+			HttpGet getCategory = new HttpGet("http://vrfessor.com:12341/?action=2");
+			HttpGet getPics = new HttpGet("http://vrfessor.com:12341/?action=3");
+			HttpResponse response = null;
+			String strResult = "";
+			try {
+				response = client.execute(getTime);
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (response.getStatusLine().getStatusCode() == 200) {
 				try {
-					/** 客服端向服务器发送请求 **/
-					response1 = client1.execute(get);
-				} catch (ClientProtocolException e) {
-					// TODO Auto-generated catch block
+					strResult = EntityUtils.toString(response.getEntity());
+				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				JSONObject jsonObject1 = null;
+				try {
+					/** 把json字符串转换成json对象 **/
+					jsonObject1 = getJSON(strResult);
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				String names = "";
+				String category = "";
+				String mode = "";
+				String url = "";
+				
+				try {
+					//date
+					String data3 = jsonObject1.getString("time");
+					JSONArray timeArray = new JSONArray(data3);
+					SharedPreferences sharedData = getSharedPreferences("qiqi", Context.MODE_PRIVATE);
+					String oDate = sharedData.getString("get_time", "");
+//					Log.d("qiqi", "timeArray:" + timeArray );
+					String nDate = ((JSONArray) timeArray.get(0)).getString(1);
+//					Log.d("qiqi", " nDate:" + nDate);
+					if(nDate.equals(oDate)){
+						mHandler.sendEmptyMessage(0); 
+						if (Constants.LOG_ENABLE) {
+							Log.d("qiqi", "data is same ,return.");
+						}
+						return;
+					}
+					if (Constants.LOG_ENABLE) {
+						Log.d("qiqi", "data not same, download.");
+					}
+					getContentResolver().delete(Pic.CONTENT_URI, null, null);
+					getContentResolver().delete(Category.CONTENT_URI, null, null);
+					Editor editor = sharedData.edit();
+					editor.putString("get_time", nDate);
+					editor.commit();
+				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				/** 请求发送成功，并得到响应 **/
-				if (response1.getStatusLine().getStatusCode() == 200) {
-					try {
-						/** 读取服务器返回过来的json字符串数据 **/
-						strResult1 = EntityUtils
-								.toString(response1.getEntity());
-					} catch (IllegalStateException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 
-					JSONObject jsonObject1 = null;
-					try {
-						/** 把json字符串转换成json对象 **/
-						jsonObject1 = getJSON(strResult1);
-					} catch (JSONException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					String names = "";
-					String category = "";
-					String mode = "";
-					String url = "";
-					Log.d("qiqi", strResult1);
-					ArrayList<ContentValues> totalValues = new ArrayList<ContentValues>();
-					try {
-						//date
-						String data3 = jsonObject1.getString("date");
-						JSONObject jsono2 = new JSONObject(data3);
-						String nDate = jsono2.getString("time");
-						SharedPreferences sharedData = getSharedPreferences("qiqi", Context.MODE_PRIVATE);
-						String oDate = sharedData.getString("get_time", "");
-						if(nDate.equals(oDate)){
-							mHandler.sendEmptyMessage(0);
-							if (Constants.LOG_ENABLE) {
-								Log.d("qiqi", "data is same ,return.");
-							}
-							return;
-						}
-						if (Constants.LOG_ENABLE) {
-							Log.d("qiqi", "data not same, download.");
-						}
-						getContentResolver().delete(Pic.CONTENT_URI, null, null);
-						getContentResolver().delete(Page.CONTENT_URI, null, null);
-						Editor editor = sharedData.edit();
-						editor.putString("get_time", nDate);
-						editor.commit();
-						//pics
-						String data = jsonObject1.getString("pics");
-						JSONArray jarr1 = new JSONArray(data);
-						for (int i = 0; i < jarr1.length(); i++) {
-
-							/** **/
-							JSONObject jsono = (JSONObject) jarr1.get(i);
-
-							/** 取出list下的name的值 **/
-							Log.d("qiqi", mode + " " + category + " " + names);
-							ContentValues value = new ContentValues();
-							value.put(Pic.COLUMN_DEFAULT_MODE,
-									jsono.getString("mode"));
-							value.put(Pic.COLUMN_DEFAULT_CATEGORY,
-									jsono.getString("category"));
-							value.put(Pic.COLUMN_DEFAULT_NAME,
-									jsono.getString("name"));
-							value.put(Pic.COLUMN_DEFAULT_URL,
-									jsono.getString("url"));
-							value.put(Pic.COLUMN_DEFALUT_ISTITLE,
-									jsono.getString("istitle"));
-							totalValues.add(value);
-						}
-						insert(totalValues);
-						//first page
-						String data2 = jsonObject1.getString("page");
-						JSONObject jsono = new JSONObject(data2);
-						ContentValues value = new ContentValues();
-						value.put(Page.COLUMN_DEFAULT_NAME,
-								jsono.getString("name"));
-						value.put(Page.COLUMN_DEFAULT_URL,
-								jsono.getString("url"));
-						value.put(Page.COLUMN_DEFAULT_CTIME,
-								jsono.getString("ctime"));
-						getContentResolver().insert(Page.CONTENT_URI, value);
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-				} else
-					// Toast.makeText(MainActivity.this, "get提交失败",
-					// Toast.LENGTH_SHORT).show();
-					Log.d("qiqi", "get提交失败");
+			} else{
+				Log.d("qiqi", "get提交失败");
 			}
-		};
+			//GET CATEGORY
+			try {
+				response = client.execute(getCategory);
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (response.getStatusLine().getStatusCode() == 200) {
+				try {
+					strResult = EntityUtils.toString(response.getEntity());
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				JSONObject jsonObject1 = null;
+				try {
+					/** 把json字符串转换成json对象 **/
+					jsonObject1 = getJSON(strResult);
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					//category
+					String data3 = jsonObject1.getString("category");
+					JSONArray categoryArray = new JSONArray(data3);
+//					Log.d("qiqi", "categoryArray:" + categoryArray );
+					for(int i = 0; i < categoryArray.length();i++){
+						ContentValues value = new ContentValues();
+						value.put(Category.COLUMN_DEFAULT_NAME,
+								((JSONArray) categoryArray.get(i)).getString(1));
+						value.put(Category.COLUMN_DEFAULT_PORT,
+								((JSONArray) categoryArray.get(i)).getString(2));
+						value.put(Category.COLUMN_DEFAULT_LAND,
+								((JSONArray) categoryArray.get(i)).getString(3));
+//						Log.d("qiqi", "values:" + ((JSONArray) categoryArray.get(0)).getString(1) + " " + ((JSONArray) categoryArray.get(0)).getString(2) + " " + ((JSONArray) categoryArray.get(0)).getString(3));
+						getContentResolver().insert(Category.CONTENT_URI, value);
+					}	
+				}catch (JSONException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			//GET CATEGORY
+			try {
+				response = client.execute(getPics);
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (response.getStatusLine().getStatusCode() == 200) {
+				try {
+					strResult = EntityUtils.toString(response.getEntity());
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				JSONObject jsonObject1 = null;
+				try {
+					/** 把json字符串转换成json对象 **/
+					jsonObject1 = getJSON(strResult);
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					//category
+					String data3 = jsonObject1.getString("pics");
+					JSONArray picArray = new JSONArray(data3);
+//					Log.d("qiqi", "picArray:" + picArray );
+					ArrayList<ContentValues> totalValues = new ArrayList<ContentValues>();
+					for(int i = 0; i < picArray.length();i++){
+						ContentValues value = new ContentValues();
+						value.put(Pic.COLUMN_DEFAULT_NAME,
+								((JSONArray) picArray.get(i)).getString(1));
+						value.put(Pic.COLUMN_DEFAULT_MODE,
+								((JSONArray) picArray.get(i)).getString(2));
+						value.put(Pic.COLUMN_DEFAULT_CATEGORY,
+								((JSONArray) picArray.get(i)).getString(3));
+						value.put(Pic.COLUMN_DEFAULT_TAG,
+								((JSONArray) picArray.get(i)).getString(4));
+//						Log.d("qiqi", "values:" + ((JSONArray) picArray.get(i)).getString(1) + " " + ((JSONArray) picArray.get(i)).getString(2) + " " + ((JSONArray) picArray.get(i)).getString(3)+ " " + ((JSONArray) picArray.get(i)).getString(4));
+//						getContentResolver().insert(Category.CONTENT_URI, value);
+						totalValues.add(value);
+						insert(totalValues);
+					}	
+				}catch (JSONException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+	};
+	
+	private void startGetInfo() {
+
 		new Thread(getRun).start();
 	}
 	public JSONObject getJSON(String sb) throws JSONException {
@@ -297,6 +347,9 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		long rowId;
 		Uri rowUri = null;
 		TDPDbHelper dbHelper = new TDPDbHelper(this, "tdp.db", 1);
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", "db get writable.");
+		}
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		db.beginTransaction();
 		try {
@@ -319,6 +372,9 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 			db.endTransaction();
 		}
 		mHandler.sendEmptyMessage(0);
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", "db close");
+		}
 		db.close();
 		return rowUri;
 	}

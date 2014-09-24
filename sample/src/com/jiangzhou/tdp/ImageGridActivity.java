@@ -56,13 +56,13 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.ac_image_grid);
 		String[] sArgs = getIntent().getStringArrayExtra(Constants.IMAGES_LIGHT);
-		Cursor cur = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFAULT_MODE + " = ? and " + Pic.COLUMN_DEFAULT_CATEGORY + " = ? and " + Pic.COLUMN_DEFALUT_ISTITLE + " = ?", sArgs, null);
-		if (Constants.LOG_ENABLE) {
-			Log.d("qiqi", "cur.getCount:" + cur.getCount() + "");
-		}
-		while(cur.moveToNext()){
-			imageUrls.add(cur.getString(cur.getColumnIndex(Pic.COLUMN_DEFAULT_URL)));
-		}
+//		Cursor cur = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFAULT_MODE + " = ? and " + Pic.COLUMN_DEFAULT_CATEGORY + " = ? and " + Pic.COLUMN_DEFALUT_ISTITLE + " = ?", sArgs, null);
+//		if (Constants.LOG_ENABLE) {
+//			Log.d("qiqi", "cur.getCount:" + cur.getCount() + "");
+//		}
+//		while(cur.moveToNext()){
+////			imageUrls.add(cur.getString(cur.getColumnIndex(Pic.COLUMN_DEFAULT_URL)));
+//		}
 		mDecorView = getWindow().getDecorView();
 		hideSystemUI();
 		options = new DisplayImageOptions.Builder()

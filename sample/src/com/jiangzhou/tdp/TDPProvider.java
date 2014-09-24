@@ -41,8 +41,8 @@ public class TDPProvider extends ContentProvider {
     static {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         
-        mUriMatcher.addURI(URI_AUTHORITY, Page.TABLE_NAME, URI_CODE_PAGE);
-        mUriMatcher.addURI(URI_AUTHORITY, Page.TABLE_NAME + "/#", URI_CODE_PAGE_ID);
+        mUriMatcher.addURI(URI_AUTHORITY, Category.TABLE_NAME, URI_CODE_PAGE);
+        mUriMatcher.addURI(URI_AUTHORITY, Category.TABLE_NAME + "/#", URI_CODE_PAGE_ID);
         mUriMatcher.addURI(URI_AUTHORITY, Pic.TABLE_NAME, URI_CODE_PIC);
         mUriMatcher.addURI(URI_AUTHORITY, Pic.TABLE_NAME + "/#", URI_CODE_PIC_ID);
     }
@@ -76,12 +76,15 @@ public class TDPProvider extends ContentProvider {
 	public Uri insert(Uri uri, ContentValues values) {
 		long rowId;
 		Uri rowUri = null;
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", "db get writable.");
+		}
 		SQLiteDatabase db = mMemoDbHelper.getWritableDatabase();
 		switch (mUriMatcher.match(uri)) {
 		case URI_CODE_PAGE:
-			rowId = db.insert(Page.TABLE_NAME, null, values);
+			rowId = db.insert(Category.TABLE_NAME, null, values);
 			if (rowId != -1) {
-				rowUri = ContentUris.withAppendedId(Page.CONTENT_URI, rowId);
+				rowUri = ContentUris.withAppendedId(Category.CONTENT_URI, rowId);
 			}
 			break;
 		case URI_CODE_PIC:
@@ -91,6 +94,9 @@ public class TDPProvider extends ContentProvider {
 			}
 			break;
 		}
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", "db close");
+		}
 		db.close();
 		return rowUri;
 	}
@@ -98,14 +104,17 @@ public class TDPProvider extends ContentProvider {
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		int count = 0;
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", "db get writable.");
+		}
 		SQLiteDatabase db = mMemoDbHelper.getWritableDatabase();
 		switch (mUriMatcher.match(uri)) {
 		case URI_CODE_PAGE:
-			count = db.delete(Page.TABLE_NAME, selection, selectionArgs);
+			count = db.delete(Category.TABLE_NAME, selection, selectionArgs);
 			break;
 		case URI_CODE_PAGE_ID:
-			count = db.delete(Page.TABLE_NAME,
-					Page.COLUMN_ID
+			count = db.delete(Category.TABLE_NAME,
+					Category.COLUMN_ID
 							+ "="
 							+ uri.getLastPathSegment()
 							+ (!TextUtils.isEmpty(selection) ? " AND ("
@@ -127,6 +136,9 @@ public class TDPProvider extends ContentProvider {
 			Log.e(TAG, "Unknown URI:" + uri);
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", "db close");
+		}
 		db.close();
 		return count;
 	}
@@ -138,11 +150,11 @@ public class TDPProvider extends ContentProvider {
 		int count;
 		switch (mUriMatcher.match(uri)) {
 		case URI_CODE_PAGE:
-			count = db.update(Page.TABLE_NAME, values, selection, selectionArgs);
+			count = db.update(Category.TABLE_NAME, values, selection, selectionArgs);
 			break;
 		case URI_CODE_PAGE_ID:
-			count = db.update(Page.TABLE_NAME, values,
-					Page.COLUMN_ID
+			count = db.update(Category.TABLE_NAME, values,
+					Category.COLUMN_ID
 							+ "="
 							+ uri.getLastPathSegment()
 							+ (!TextUtils.isEmpty(selection) ? " AND ("
@@ -178,11 +190,11 @@ public class TDPProvider extends ContentProvider {
 		Log.e("memo", "=======================================mUriMatcher.match(uri):" + mUriMatcher.match(uri));
 		switch (mUriMatcher.match(uri)) {
 		case URI_CODE_PAGE:
-			sqlBuilder.setTables(Page.TABLE_NAME);
+			sqlBuilder.setTables(Category.TABLE_NAME);
 			break;
 		case URI_CODE_PAGE_ID:
-			sqlBuilder.setTables(Page.TABLE_NAME);
-			sqlBuilder.appendWhere(Page.COLUMN_ID + "="
+			sqlBuilder.setTables(Category.TABLE_NAME);
+			sqlBuilder.appendWhere(Category.COLUMN_ID + "="
 					+ uri.getLastPathSegment());
 			break;
 			

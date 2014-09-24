@@ -35,16 +35,14 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 	.build();
 	
 	private Cursor mCursor;
-	private int[] mTitles;
 	private int mDirect;
 	private int mModeChoice = 0;
-	public static CategoryFragment newInstance(int content , int[] titles, Cursor cur, int direct, int mode_choice) {
+	public static CategoryFragment newInstance(int content , Cursor cur, int direct, int mode_choice) {
 		CategoryFragment fragment = new CategoryFragment();
 		fragment.mDirect = direct;
 		fragment.mCursor = cur;
 		fragment.mContent = content;
 		fragment.mModeChoice = mode_choice;
-		fragment.mTitles = titles;
 		Log.d("qiqi", "cur.getCount():" + cur.getCount());
 		return fragment;
 	}
@@ -78,12 +76,16 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 			if((mContent * imageViewIds.length + i) < mCursor.getCount()){
 				ImageView imageView = (ImageView) layout.findViewById(imageViewIds[i]);
 				TextView text = (TextView) layout.findViewById(titleIds[i]);
+				int cur = mContent*imageViewIds.length + i;
+				if (Constants.LOG_ENABLE) {
+					Log.d("qiqi", "move to :" + cur);
+				}
 				mCursor.moveToPosition(mContent*imageViewIds.length + i);
-				String cName = mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_CATEGORY));
+				String cName = mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_NAME));
 				text.setText(cName);
-				Log.d("qiqi", mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_URL)));
+				Log.d("qiqi", mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_NAME)));
 				imageView.setTag(cName);
-				imageLoader.displayImage("http://qijiangzhou.com/" + mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_URL)), imageView, options);
+				imageLoader.displayImage(Constants.CATEGORY_IMAGE_DIR + mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_PORT)), imageView, options);
 				imageView.setOnClickListener(this);
 			}
 		}

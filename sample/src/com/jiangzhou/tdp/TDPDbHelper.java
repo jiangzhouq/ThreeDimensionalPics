@@ -20,20 +20,24 @@ public class TDPDbHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		Log.d("qiqi", "start create tables");
-		db.execSQL("CREATE TABLE " + Page.TABLE_NAME + "("
-				+ Page.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ Page.COLUMN_DEFAULT_NAME + " TEXT,"
-				+ Page.COLUMN_DEFAULT_URL + " TEXT,"
-				+ Page.COLUMN_DEFAULT_CTIME + " TEXT"
+		db.execSQL("CREATE TABLE " + Category.TABLE_NAME + "("
+				+ Category.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ Category.COLUMN_DEFAULT_NAME + " TEXT,"
+				+ Category.COLUMN_DEFAULT_PORT + " TEXT,"
+				+ Category.COLUMN_DEFAULT_LAND + " TEXT"
+				+ ")");
+		
+		db.execSQL("CREATE TABLE " + Tag.TABLE_NAME + "("
+				+ Tag.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ Tag.COLUMN_DEFAULT_NAME + " TEXT"
 				+ ")");
 		
 		db.execSQL("CREATE TABLE " + Pic.TABLE_NAME + "("
 				+ Pic.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ Pic.COLUMN_DEFAULT_NAME + " TEXT,"
 				+ Pic.COLUMN_DEFAULT_MODE + " TEXT,"
 				+ Pic.COLUMN_DEFAULT_CATEGORY + " TEXT,"
-				+ Pic.COLUMN_DEFAULT_NAME + " TEXT,"
-				+ Pic.COLUMN_DEFAULT_URL + " TEXT,"
-				+ Pic.COLUMN_DEFALUT_ISTITLE + " TEXT"
+				+ Pic.COLUMN_DEFAULT_TAG + " TEXT"
 				+ ")");
 	}
 
