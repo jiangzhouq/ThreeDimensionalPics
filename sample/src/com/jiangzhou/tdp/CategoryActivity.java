@@ -74,9 +74,9 @@ public class CategoryActivity extends FragmentActivity {
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}else{
-			VerticalViewPager pager;
-			setContentView(R.layout.ac_image_pager);
-			pager = (VerticalViewPager) findViewById(R.id.pager);
+			ViewPager pager;
+			setContentView(R.layout.ac_image_pager_no_actionbar);
+			pager = (ViewPager) findViewById(R.id.pager);
 			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
@@ -98,9 +98,9 @@ public class CategoryActivity extends FragmentActivity {
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
 		}else{
-			VerticalViewPager pager;
-			setContentView(R.layout.ac_image_pager);
-			pager = (VerticalViewPager) findViewById(R.id.pager);
+			ViewPager pager;
+			setContentView(R.layout.ac_image_pager_no_actionbar);
+			pager = (ViewPager) findViewById(R.id.pager);
 			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
@@ -133,6 +133,15 @@ public class CategoryActivity extends FragmentActivity {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
+			if(mDirect == Configuration.ORIENTATION_LANDSCAPE){
+				if(cursor.getCount()%5 == 0)
+					return cursor.getCount()/5;
+				return cursor.getCount()/5 + 1;
+			}else if (mDirect == Configuration.ORIENTATION_PORTRAIT){
+				if(cursor.getCount()%9 == 0)
+					return cursor.getCount()/9;
+				return cursor.getCount()/9 + 1;
+			}
 			return cursor.getCount()/5 + 1;
 		}
 	}

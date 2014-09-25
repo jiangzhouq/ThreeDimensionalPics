@@ -54,24 +54,47 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 			mContent = savedInstanceState.getInt(KEY_CONTENT);
 		}
 		LinearLayout layout = null;
+		int[] imageViewIds;
+		int[] titleIds;
 		if(mDirect == Configuration.ORIENTATION_LANDSCAPE){
 			layout = (LinearLayout) inflater.inflate(R.layout.category_pager_landscape, container, false);
+			imageViewIds = new int[]{
+					R.id.category1,
+					R.id.category2,
+					R.id.category3,
+					R.id.category4,
+					R.id.category5};
+			titleIds = new int[]{
+					R.id.title1,
+					R.id.title2,
+					R.id.title3,
+					R.id.title4,
+					R.id.title5,
+			};
 		}else{
 			layout = (LinearLayout) inflater.inflate(R.layout.category_pager_portrait, container, false);
+			imageViewIds = new int[]{
+					R.id.category1,
+					R.id.category2,
+					R.id.category3,
+					R.id.category4,
+					R.id.category5,
+					R.id.category6,
+					R.id.category7,
+					R.id.category8,
+					R.id.category9};
+			titleIds = new int[]{
+					R.id.title1,
+					R.id.title2,
+					R.id.title3,
+					R.id.title4,
+					R.id.title5,
+					R.id.title6,
+					R.id.title7,
+					R.id.title8,
+					R.id.title9
+			};
 		}
-		int[] imageViewIds = new int[]{
-				R.id.category1,
-				R.id.category2,
-				R.id.category3,
-				R.id.category4,
-				R.id.category5};
-		int[] titleIds = new int[]{
-				R.id.title1,
-				R.id.title2,
-				R.id.title3,
-				R.id.title4,
-				R.id.title5,
-		};
 		for (int i = 0; i < imageViewIds.length; i++){
 			if((mContent * imageViewIds.length + i) < mCursor.getCount()){
 				ImageView imageView = (ImageView) layout.findViewById(imageViewIds[i]);
