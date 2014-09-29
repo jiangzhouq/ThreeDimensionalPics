@@ -76,9 +76,6 @@ public class TDPProvider extends ContentProvider {
 	public Uri insert(Uri uri, ContentValues values) {
 		long rowId;
 		Uri rowUri = null;
-		if (Constants.LOG_ENABLE) {
-			Log.d("qiqi", "db get writable.");
-		}
 		SQLiteDatabase db = mMemoDbHelper.getWritableDatabase();
 		switch (mUriMatcher.match(uri)) {
 		case URI_CODE_PAGE:
@@ -94,9 +91,6 @@ public class TDPProvider extends ContentProvider {
 			}
 			break;
 		}
-		if (Constants.LOG_ENABLE) {
-			Log.d("qiqi", "db close");
-		}
 		db.close();
 		return rowUri;
 	}
@@ -104,9 +98,6 @@ public class TDPProvider extends ContentProvider {
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		int count = 0;
-		if (Constants.LOG_ENABLE) {
-			Log.d("qiqi", "db get writable.");
-		}
 		SQLiteDatabase db = mMemoDbHelper.getWritableDatabase();
 		switch (mUriMatcher.match(uri)) {
 		case URI_CODE_PAGE:
@@ -135,9 +126,6 @@ public class TDPProvider extends ContentProvider {
 		default:
 			Log.e(TAG, "Unknown URI:" + uri);
 			throw new IllegalArgumentException("Unknown URI " + uri);
-		}
-		if (Constants.LOG_ENABLE) {
-			Log.d("qiqi", "db close");
 		}
 		db.close();
 		return count;

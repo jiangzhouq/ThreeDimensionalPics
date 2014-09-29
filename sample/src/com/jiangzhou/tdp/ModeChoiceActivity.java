@@ -310,7 +310,7 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 					//category
 					String data3 = jsonObject1.getString("pics");
 					JSONArray picArray = new JSONArray(data3);
-//					Log.d("qiqi", "picArray:" + picArray );
+					Log.d("qiqi", "picArray.length:" + picArray.length() );
 					ArrayList<ContentValues> totalValues = new ArrayList<ContentValues>();
 					for(int i = 0; i < picArray.length();i++){
 						ContentValues value = new ContentValues();
@@ -323,9 +323,10 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 						value.put(Pic.COLUMN_DEFAULT_TAG,
 								((JSONArray) picArray.get(i)).getString(4));
 //						Log.d("qiqi", "values:" + ((JSONArray) picArray.get(i)).getString(1) + " " + ((JSONArray) picArray.get(i)).getString(2) + " " + ((JSONArray) picArray.get(i)).getString(3)+ " " + ((JSONArray) picArray.get(i)).getString(4));
-//						getContentResolver().insert(Category.CONTENT_URI, value);
-						totalValues.add(value);
-						insert(totalValues);
+						getContentResolver().insert(Pic.CONTENT_URI, value);
+						mHandler.sendEmptyMessage(0);
+//						totalValues.add(value);
+//						insert(totalValues);
 					}	
 				}catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -348,9 +349,6 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 		long rowId;
 		Uri rowUri = null;
 		TDPDbHelper dbHelper = new TDPDbHelper(this, "tdp.db", 1);
-		if (Constants.LOG_ENABLE) {
-			Log.d("qiqi", "db get writable.");
-		}
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		db.beginTransaction();
 		try {
@@ -373,9 +371,6 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 			db.endTransaction();
 		}
 		mHandler.sendEmptyMessage(0);
-		if (Constants.LOG_ENABLE) {
-			Log.d("qiqi", "db close");
-		}
 		db.close();
 		return rowUri;
 	}
