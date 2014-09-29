@@ -83,7 +83,6 @@ public class CategoryActivity extends FragmentActivity {
 			pager.setCurrentItem(pagerPosition);
 		}
 		mDecorView = getWindow().getDecorView();
-		hideSystemUI();
 	}
 
 	@Override
@@ -97,6 +96,7 @@ public class CategoryActivity extends FragmentActivity {
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
+//			hideSystemUI();
 		}else{
 			ViewPager pager;
 			setContentView(R.layout.ac_image_pager_no_actionbar);
@@ -105,6 +105,7 @@ public class CategoryActivity extends FragmentActivity {
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
+//			showSystemUI();
 		}
 	}
 	@Override
@@ -146,18 +147,18 @@ public class CategoryActivity extends FragmentActivity {
 		}
 	}
 	
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-	        super.onWindowFocusChanged(hasFocus);
-	    if (hasFocus) {
-	    	mDecorView.setSystemUiVisibility(
-	                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-	                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-	                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-	                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-	                | View.SYSTEM_UI_FLAG_FULLSCREEN
-	                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
-	}
+//	@Override
+//	public void onWindowFocusChanged(boolean hasFocus) {
+//	        super.onWindowFocusChanged(hasFocus);
+//	    if (hasFocus) {
+//	    	mDecorView.setSystemUiVisibility(
+//	                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//	                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//	                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//	                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//	                | View.SYSTEM_UI_FLAG_FULLSCREEN
+//	                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+//	}
 	// This snippet hides the system bars.
 	private void hideSystemUI() {
 	    // Set the IMMERSIVE flag.

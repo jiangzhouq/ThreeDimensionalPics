@@ -56,15 +56,16 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.ac_image_grid);
 		String[] sArgs = getIntent().getStringArrayExtra(Constants.IMAGES_LIGHT);
-//		Cursor cur = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFAULT_MODE + " = ? and " + Pic.COLUMN_DEFAULT_CATEGORY + " = ? and " + Pic.COLUMN_DEFALUT_ISTITLE + " = ?", sArgs, null);
-//		if (Constants.LOG_ENABLE) {
-//			Log.d("qiqi", "cur.getCount:" + cur.getCount() + "");
-//		}
-//		while(cur.moveToNext()){
-////			imageUrls.add(cur.getString(cur.getColumnIndex(Pic.COLUMN_DEFAULT_URL)));
-//		}
+		Cursor cur = getContentResolver().query(Pic.CONTENT_URI, null, Pic.COLUMN_DEFAULT_MODE + " = ? and " + Pic.COLUMN_DEFAULT_CATEGORY + " = ?", sArgs, null);
+//		Cursor cur = getContentResolver().query(Pic.CONTENT_URI, null, null, null, null);
+		if (Constants.LOG_ENABLE) {
+			Log.d("qiqi", "sArgs" + sArgs[0] + " " + sArgs[1]);
+			Log.d("qiqi", "cur.getCount:" + cur.getCount() + "");
+		}
+		while(cur.moveToNext()){
+			imageUrls.add(cur.getString(cur.getColumnIndex(Pic.COLUMN_DEFAULT_NAME)));
+		}
 		mDecorView = getWindow().getDecorView();
-		hideSystemUI();
 		options = new DisplayImageOptions.Builder()
 			.showImageOnLoading(R.drawable.ic_stub)
 			.showImageForEmptyUri(R.drawable.ic_empty)
@@ -139,7 +140,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 				holder = (ViewHolder) view.getTag();
 			}
 
-			imageLoader.displayImage("http://qijiangzhou.com/" + imageUrls.get(position), holder.imageView, options, new SimpleImageLoadingListener() {
+			imageLoader.displayImage("http://vrfessor.com/mode/" + imageUrls.get(position), holder.imageView, options, new SimpleImageLoadingListener() {
 										 @Override
 										 public void onLoadingStarted(String imageUri, View view) {
 											 holder.progressBar.setProgress(0);
@@ -173,8 +174,10 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		super.onConfigurationChanged(newConfig);
 		if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
 			numCol = 4;
+			hideSystemUI();
 		}else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
 			numCol = 3;
+			showSystemUI();
 		}
 		((GridView)listView).setNumColumns(numCol);
 		((GridView) listView).setAdapter(new ImageAdapter());
@@ -185,18 +188,18 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 			}
 		});
 	}
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-	        super.onWindowFocusChanged(hasFocus);
-	    if (hasFocus) {
-	    	mDecorView.setSystemUiVisibility(
-	                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-	                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-	                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-	                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-	                | View.SYSTEM_UI_FLAG_FULLSCREEN
-	                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
-	}
+//	@Override
+//	public void onWindowFocusChanged(boolean hasFocus) {
+//	        super.onWindowFocusChanged(hasFocus);
+//	    if (hasFocus) {
+//	    	mDecorView.setSystemUiVisibility(
+//	                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//	                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//	                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//	                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//	                | View.SYSTEM_UI_FLAG_FULLSCREEN
+//	                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
+//	}
 	// This snippet hides the system bars.
 	private void hideSystemUI() {
 	    // Set the IMMERSIVE flag.
@@ -217,6 +220,11 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 	    mDecorView.setSystemUiVisibility(
 	            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 	            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-	            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-	}
+	            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);}
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
 }

@@ -108,7 +108,11 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 				text.setText(cName);
 				Log.d("qiqi", mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_NAME)));
 				imageView.setTag(cName);
-				imageLoader.displayImage(Constants.CATEGORY_IMAGE_DIR + mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_PORT)), imageView, options);
+				if (mDirect == Configuration.ORIENTATION_LANDSCAPE){					
+					imageLoader.displayImage(Constants.CATEGORY_IMAGE_DIR + mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_PORT)), imageView, options);
+				}else{
+					imageLoader.displayImage(Constants.CATEGORY_IMAGE_DIR + mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_LAND)), imageView, options);
+				}
 				imageView.setOnClickListener(this);
 			}
 		}
@@ -129,12 +133,12 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 		}
 		if(mModeChoice == Constants.MODE_CHOLICE_HONGLAN){
 			Intent intent = new Intent(getActivity(), ImageGridActivity.class);
-			intent.putExtra(Constants.IMAGES_LIGHT, new String[]{"红蓝",(String)view.getTag(),"0"});
+			intent.putExtra(Constants.IMAGES_LIGHT, new String[]{"redblue",(String)view.getTag()});
 			getActivity().startActivity(intent);
 			
 		}else{
 			Intent intent = new Intent(getActivity(), ImageGridActivity.class);
-			intent.putExtra(Constants.IMAGES_LIGHT,  new String[]{"左右",(String)view.getTag(),"0"});
+			intent.putExtra(Constants.IMAGES_LIGHT,  new String[]{"leftright",(String)view.getTag()});
 			getActivity().startActivity(intent);
 		}
 	}
