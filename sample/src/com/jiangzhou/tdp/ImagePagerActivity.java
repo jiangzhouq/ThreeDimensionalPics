@@ -15,28 +15,17 @@
  *******************************************************************************/
 package com.jiangzhou.tdp;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothServerSocket;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -47,6 +36,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,9 +45,8 @@ import android.widget.Toast;
 
 import com.jiangzhou.tdp.Constants.Extra;
 import com.jiangzhou.tdp.widget.MyViewPager;
-import com.jiangzhou.tdp.widget.ZoomOutPageTransformer;
 import com.jiangzhou.tdp.widget.MyViewPager.Toucher;
-import com.jiangzhou.tdp.R;
+import com.jiangzhou.tdp.widget.ZoomOutPageTransformer;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -100,8 +89,9 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.ac_image_pager_2);
-
+		
 		Bundle bundle = getIntent().getExtras();
 		assert bundle != null;
 		mImageUrls= bundle.getStringArray(Extra.IMAGES);
