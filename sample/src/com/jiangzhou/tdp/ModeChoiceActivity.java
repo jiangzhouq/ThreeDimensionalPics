@@ -79,7 +79,7 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 //		hideSystemUI();
 		ImageView bg = (ImageView) findViewById(R.id.bg);
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage("http://jiangzhoumigs-jiangzhoumigs.stor.sinaapp.com/original/20140909bg.jpg",bg, options);
+		imageLoader.displayImage("http://vrfessor.com/mybackground.jpg",bg, options);
 		
 //		Log.d("qiqi", "TDPProvider start onCreate");
 //		Cursor mCursor = getContentResolver().query(Page.CONTENT_URI, null, null, null, null);
@@ -324,10 +324,10 @@ public class ModeChoiceActivity extends Activity implements OnClickListener{
 								((JSONArray) picArray.get(i)).getString(4));
 //						Log.d("qiqi", "values:" + ((JSONArray) picArray.get(i)).getString(1) + " " + ((JSONArray) picArray.get(i)).getString(2) + " " + ((JSONArray) picArray.get(i)).getString(3)+ " " + ((JSONArray) picArray.get(i)).getString(4));
 						getContentResolver().insert(Pic.CONTENT_URI, value);
-						mHandler.sendEmptyMessage(0);
 //						totalValues.add(value);
 //						insert(totalValues);
 					}	
+					mHandler.sendEmptyMessage(0);
 				}catch (JSONException e) {
 				// TODO Auto-generated catch block
 					e.printStackTrace();
