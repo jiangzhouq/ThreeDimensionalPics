@@ -41,6 +41,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.umeng.update.UmengUpdateAgent;
 
 public class ModeChoiceActivity extends Activity implements OnClickListener {
 
@@ -91,6 +92,7 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 		// value.put(Page.COLUMN_DEFAULT_URL, "zhangwanglitishidai");
 		// value.put(Page.COLUMN_DEFAULT_CTIME, "20140901");
 		// getContentResolver().insert(Page.CONTENT_URI, value);
+		UmengUpdateAgent.update(this);
 		if(isConnected()){
 			startGetInfo();
 		}else{
