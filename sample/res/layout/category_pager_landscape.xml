@@ -7,7 +7,8 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1" >
+        android:layout_weight="1" 
+        android:layout_margin="1dp">
 
         <ImageView
             android:id="@+id/category1"
@@ -20,17 +21,20 @@
 
         <TextView
             android:id="@+id/title1"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
+            android:background="#88000000"
+            android:gravity="center"
             android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true"/>
+			android:layout_alignParentRight="true" 
+					android:textSize="8pt"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1" >
+        android:layout_weight="1" 
+        android:layout_margin="1dp">
 
         <ImageView
             android:id="@+id/category2"
@@ -42,17 +46,20 @@
             android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/title2"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
+            android:background="#88000000"
+            android:gravity="center"
             android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true" />
+			android:layout_alignParentRight="true"  
+					android:textSize="8pt"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1" >
+        android:layout_weight="1" 
+        android:layout_margin="1dp">
 
         <ImageView
             android:id="@+id/category3"
@@ -64,17 +71,20 @@
             android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/title3"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
+            android:background="#88000000"
+            android:gravity="center"
             android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true" />
+			android:layout_alignParentRight="true"  
+					android:textSize="8pt"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1" >
+        android:layout_weight="1" 
+        android:layout_margin="1dp">
 
         <ImageView
             android:id="@+id/category4"
@@ -86,17 +96,20 @@
             android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/title4"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
+            android:background="#88000000"
+            android:gravity="center"
             android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true"/>
+			android:layout_alignParentRight="true" 
+					android:textSize="8pt"/>
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1" >
+        android:layout_weight="1" 
+        android:layout_margin="1dp">
 
         <ImageView
             android:id="@+id/category5"
@@ -108,11 +121,13 @@
             android:scaleType="centerCrop" />
         <TextView
             android:id="@+id/title5"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
+            android:background="#88000000"
+            android:gravity="center"
             android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true"/>
+			android:layout_alignParentRight="true" 
+					android:textSize="8pt"/>
     </RelativeLayout>
 
 </LinearLayout>
