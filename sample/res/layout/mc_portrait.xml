@@ -15,6 +15,16 @@
 		    android:layout_height="fill_parent"
 			android:background="@android:color/transparent"
 			android:scaleType="centerCrop"/>
+		<TextView android:id="@+id/warning"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp" 
+            android:layout_alignParentBottom="true"
+            android:background="#88000000"
+            android:text="@string/loading"
+            android:textSize="8pt"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+		    />
         <LinearLayout
             android:id="@+id/menus"
             android:layout_width="fill_parent"
