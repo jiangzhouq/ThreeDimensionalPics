@@ -1,5 +1,6 @@
 package com.jiangzhou.tdp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -15,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jiangzhou.tdp.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -37,12 +37,14 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 	private Cursor mCursor;
 	private int mDirect;
 	private int mModeChoice = 0;
-	public static CategoryFragment newInstance(int content , Cursor cur, int direct, int mode_choice) {
+	private Context mContext;
+	public static CategoryFragment newInstance(Context context,int content , Cursor cur, int direct, int mode_choice) {
 		CategoryFragment fragment = new CategoryFragment();
 		fragment.mDirect = direct;
 		fragment.mCursor = cur;
 		fragment.mContent = content;
 		fragment.mModeChoice = mode_choice;
+		fragment.mContext = context;
 		Log.d("qiqi", "cur.getCount():" + cur.getCount());
 		return fragment;
 	}
@@ -104,14 +106,16 @@ public final class CategoryFragment extends Fragment implements OnClickListener{
 					Log.d("qiqi", "move to :" + cur);
 				}
 				mCursor.moveToPosition(mContent*imageViewIds.length + i);
-				String cName = mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_NAME));
+				String cName = mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_CATEGORY));
 				text.setText(cName);
-				Log.d("qiqi", mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_NAME)));
+				Log.d("qiqi", mCursor.getString(mCursor.getColumnIndex(Pic.COLUMN_DEFAULT_CATEGORY)));
 				imageView.setTag(cName);
+				Cursor categoryCur = mContext.getContentResolver().query(Category.CONTENT_URI, null, Category.COLUMN_DEFAULT_NAME + "=?", new String[]{cName}, null);
+				categoryCur.moveToFirst();
 				if (mDirect == Configuration.ORIENTATION_LANDSCAPE){					
-					imageLoader.displayImage(Constants.CATEGORY_IMAGE_DIR + mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_PORT)), imageView, options);
+					imageLoader.displayImage(Constants.CATEGORY_IMAGE_DIR + categoryCur.getString(categoryCur.getColumnIndex(Category.COLUMN_DEFAULT_PORT)), imageView, options);
 				}else{
-					imageLoader.displayImage(Constants.CATEGORY_IMAGE_DIR + mCursor.getString(mCursor.getColumnIndex(Category.COLUMN_DEFAULT_LAND)), imageView, options);
+					imageLoader.displayImage(Constants.CATEGORY_IMAGE_DIR + categoryCur.getString(categoryCur.getColumnIndex(Category.COLUMN_DEFAULT_LAND)), imageView, options);
 				}
 				imageView.setOnClickListener(this);
 			}

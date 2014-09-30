@@ -69,7 +69,7 @@ public class CategoryActivity extends FragmentActivity {
 			setContentView(R.layout.ac_image_pager_no_actionbar);
 			ViewPager pager;
 			pager = (ViewPager) findViewById(R.id.pager);
-			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
+			mCursor = getContentResolver().query(Pic.CONTENT_URI, null,"1=1 ) " + " group by " + " ( " + Pic.COLUMN_DEFAULT_CATEGORY, null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
@@ -77,7 +77,7 @@ public class CategoryActivity extends FragmentActivity {
 			ViewPager pager;
 			setContentView(R.layout.ac_image_pager_no_actionbar);
 			pager = (ViewPager) findViewById(R.id.pager);
-			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
+			mCursor = getContentResolver().query(Pic.CONTENT_URI, null,"1=1 ) " + " group by " + " ( " + Pic.COLUMN_DEFAULT_CATEGORY, null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
@@ -92,7 +92,7 @@ public class CategoryActivity extends FragmentActivity {
 			ViewPager pager;
 			setContentView(R.layout.ac_image_pager_no_actionbar);
 			pager = (ViewPager) findViewById(R.id.pager);
-			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
+			mCursor = getContentResolver().query(Pic.CONTENT_URI, null,"1=1 ) " + " group by " + " ( " + Pic.COLUMN_DEFAULT_CATEGORY, null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
@@ -101,7 +101,7 @@ public class CategoryActivity extends FragmentActivity {
 			ViewPager pager;
 			setContentView(R.layout.ac_image_pager_no_actionbar);
 			pager = (ViewPager) findViewById(R.id.pager);
-			mCursor = getContentResolver().query(Category.CONTENT_URI, null, null,null, null);
+			mCursor = getContentResolver().query(Pic.CONTENT_URI, null,"1=1 ) " + " group by " + " ( " + Pic.COLUMN_DEFAULT_CATEGORY, null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
 			pager.setCurrentItem(pagerPosition);
@@ -128,7 +128,7 @@ public class CategoryActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			// TODO Auto-generated method stub
 			Log.d("qiqi", "mDirect:" + mDirect);
-			return CategoryFragment.newInstance(position , cursor , mDirect, mode_choice);
+			return CategoryFragment.newInstance(CategoryActivity.this,position , cursor , mDirect, mode_choice);
 		}
 
 		@Override
