@@ -6,7 +6,8 @@
     <com.jiangzhou.tdp.widget.MyViewPager
     android:id="@+id/pager"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" />
+    android:layout_height="fill_parent" 
+    android:background="@android:color/black"/>
     <LinearLayout 
         android:id="@+id/bar"
         android:layout_height="50dp"

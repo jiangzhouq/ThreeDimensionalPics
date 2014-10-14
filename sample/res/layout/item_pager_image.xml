@@ -10,7 +10,8 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:contentDescription="@string/descr_image" />
+        android:contentDescription="@string/descr_image" 
+        android:background="@android:color/black"/>
 
     <ProgressBar
         android:id="@+id/loading"
