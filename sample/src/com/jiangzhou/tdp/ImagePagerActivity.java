@@ -379,11 +379,11 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 			View imageLayout = inflater.inflate(R.layout.item_pager_image, viewG, false);
 			assert imageLayout != null;
 			ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
-			if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-				imageView.setScaleType(ScaleType.FIT_XY);
-			}else{
-				imageView.setScaleType(ScaleType.FIT_CENTER);
-			}
+//			if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+//				imageView.setScaleType(ScaleType.FIT_XY);
+//			}else{
+//				imageView.setScaleType(ScaleType.FIT_CENTER);
+//			}
 			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
 
 			imageLoader.displayImage("http://vrfessor.com/mode/" + images[position], imageView, options, new SimpleImageLoadingListener() {
