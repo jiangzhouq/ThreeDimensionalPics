@@ -51,7 +51,7 @@ public class AbsListViewBaseActivity extends BaseActivity {
 	}
 
 	private void applyScrollListener() {
-		listView.setOnScrollListener(new PauseOnScrollListener(imageLoader, pauseOnScroll, pauseOnFling));
+//		listView.setOnScrollListener(new PauseOnScrollListener(imageLoader, pauseOnScroll, pauseOnFling));
 	}
 
 	@Override

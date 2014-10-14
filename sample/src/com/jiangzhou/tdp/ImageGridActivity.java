@@ -26,8 +26,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -51,6 +53,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 
 	private View mDecorView;
 	private int numCol = 3;
+	static int mCurFirstPosition;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +91,18 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				startImagePagerActivity(position);
+			}
+		});
+		listView.setSelection(mCurFirstPosition);
+		listView.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView arg0, int arg1) {
+			}
+			
+			@Override
+			public void onScroll(AbsListView arg0, int firstItem, int visibleCount, int totalCount) {
+				mCurFirstPosition = firstItem ;
 			}
 		});
 	}
@@ -197,6 +212,18 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				startImagePagerActivity(position);
+			}
+		});
+		listView.setSelection(mCurFirstPosition);
+		listView.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView arg0, int arg1) {
+			}
+			
+			@Override
+			public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
+				numCol = arg1;
 			}
 		});
 	}

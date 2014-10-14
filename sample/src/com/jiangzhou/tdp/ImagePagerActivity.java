@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,9 +104,6 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		mImageUrls= bundle.getStringArray(Extra.IMAGES);
 		mPagerPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
 
-		if (savedInstanceState != null) {
-			mPagerPosition = savedInstanceState.getInt(STATE_POSITION);
-		}
 
 		options = new DisplayImageOptions.Builder()
 			.showImageForEmptyUri(R.drawable.ic_empty)
@@ -139,6 +137,21 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 			public void onTouchDown() {
 				if(mTimer != null)
 					mTimer.cancel();
+			}
+		});
+		pager.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int arg0) {
+				mPagerPosition = arg0;
+			}
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
 		ImageButton display = (ImageButton) findViewById(R.id.display);

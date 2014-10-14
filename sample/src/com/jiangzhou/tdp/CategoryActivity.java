@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -45,16 +46,13 @@ public class CategoryActivity extends FragmentActivity {
 	DisplayImageOptions options;
 	private ImagePagerAdapter mAdapter;
 	private View mDecorView;
-	int pagerPosition = 0;
 	private Cursor mCursor;
 	private int mode_choice = 0;
+	static int mCurPosition = 0;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		if (savedInstanceState != null) {
-			pagerPosition = savedInstanceState.getInt(STATE_POSITION);
-		}
 		mode_choice = getIntent().getExtras().getInt(Constants.MODE_CHOICE_NAME);
 		options = new DisplayImageOptions.Builder()
 			.showImageForEmptyUri(R.drawable.ic_empty)
@@ -73,7 +71,21 @@ public class CategoryActivity extends FragmentActivity {
 			mCursor = getContentResolver().query(Pic.CONTENT_URI, null,"1=1 ) " + " group by " + " ( " + Pic.COLUMN_DEFAULT_CATEGORY, null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
-			pager.setCurrentItem(pagerPosition);
+			pager.setCurrentItem(mCurPosition/5, true);
+			Log.d("qiqi", "oncreate land:" + mCurPosition);
+			pager.setOnPageChangeListener(new OnPageChangeListener() {
+				@Override
+				public void onPageSelected(int selected) {
+					mCurPosition = selected*5;
+					Log.d("qiqi", "mCurPositionL:" + mCurPosition);
+				}
+				@Override
+				public void onPageScrolled(int arg0, float arg1, int arg2) {
+				}
+				@Override
+				public void onPageScrollStateChanged(int arg0) {
+				}
+			});
 		}else{
 			ViewPager pager;
 			setContentView(R.layout.ac_image_pager_no_actionbar);
@@ -81,7 +93,21 @@ public class CategoryActivity extends FragmentActivity {
 			mCursor = getContentResolver().query(Pic.CONTENT_URI, null,"1=1 ) " + " group by " + " ( " + Pic.COLUMN_DEFAULT_CATEGORY, null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
-			pager.setCurrentItem(pagerPosition);
+			pager.setCurrentItem(mCurPosition/9, true);
+			Log.d("qiqi", "oncreate port:" + mCurPosition);
+			pager.setOnPageChangeListener(new OnPageChangeListener() {
+				@Override
+				public void onPageSelected(int selected) {
+					mCurPosition = selected*9;
+					Log.d("qiqi", "mCurPositionL:" + mCurPosition);
+				}
+				@Override
+				public void onPageScrolled(int arg0, float arg1, int arg2) {
+				}
+				@Override
+				public void onPageScrollStateChanged(int arg0) {
+				}
+			});
 		}
 		mDecorView = getWindow().getDecorView();
 	}
@@ -107,7 +133,21 @@ public class CategoryActivity extends FragmentActivity {
 			mCursor = getContentResolver().query(Pic.CONTENT_URI, null,"1=1 ) " + " group by " + " ( " + Pic.COLUMN_DEFAULT_CATEGORY, null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_LANDSCAPE);
 			pager.setAdapter(mAdapter);
-			pager.setCurrentItem(pagerPosition);
+			pager.setCurrentItem(mCurPosition/5, true);
+			Log.d("qiqi", "onchange land:" + mCurPosition);
+			pager.setOnPageChangeListener(new OnPageChangeListener() {
+				@Override
+				public void onPageSelected(int selected) {
+					mCurPosition = selected*5;
+					Log.d("qiqi", "mCurPositionL:" + mCurPosition);
+				}
+				@Override
+				public void onPageScrolled(int arg0, float arg1, int arg2) {
+				}
+				@Override
+				public void onPageScrollStateChanged(int arg0) {
+				}
+			});
 //			hideSystemUI();
 		}else{
 			ViewPager pager;
@@ -116,7 +156,21 @@ public class CategoryActivity extends FragmentActivity {
 			mCursor = getContentResolver().query(Pic.CONTENT_URI, null,"1=1 ) " + " group by " + " ( " + Pic.COLUMN_DEFAULT_CATEGORY, null, null);
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mCursor,Configuration.ORIENTATION_PORTRAIT);
 			pager.setAdapter(mAdapter);
-			pager.setCurrentItem(pagerPosition);
+			pager.setCurrentItem(mCurPosition/9, true);
+			Log.d("qiqi", "onchange port:" + mCurPosition);
+			pager.setOnPageChangeListener(new OnPageChangeListener() {
+				@Override
+				public void onPageSelected(int selected) {
+					mCurPosition = selected*9;
+					Log.d("qiqi", "mCurPositionL:" + mCurPosition);
+				}
+				@Override
+				public void onPageScrolled(int arg0, float arg1, int arg2) {
+				}
+				@Override
+				public void onPageScrollStateChanged(int arg0) {
+				}
+			});
 //			showSystemUI();
 		}
 	}
