@@ -124,9 +124,20 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		urls = imageUrls.toArray(urls);
 		intent.putExtra(Extra.IMAGES, urls);
 		intent.putExtra(Extra.IMAGE_POSITION, position);
-		startActivity(intent);
+		startActivityForResult(intent, 0);
 	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) {
+		case 20:
+			listView = (GridView) findViewById(R.id.gridview);
+			listView.setSelection(data.getIntExtra("mPagerPosition", 0));
+			break;
 
+		default:
+			break;
+		}
+	}
 	static class ViewHolder {
 		ImageView imageView;
 		ProgressBar progressBar;

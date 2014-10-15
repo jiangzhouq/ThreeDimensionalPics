@@ -18,9 +18,9 @@ package com.jiangzhou.tdp;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.app.ActionBar;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.hardware.Sensor;
@@ -33,20 +33,16 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.DragEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnDragListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -186,6 +182,13 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		
+	}
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent();
+		intent.putExtra("mPagerPosition", mPagerPosition);
+		setResult(20, intent);
+		finish();
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
