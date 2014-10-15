@@ -282,19 +282,21 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
                 float X_lateral = sensorEvent.values[0];  
                 float Y_longitudinal = sensorEvent.values[1];  
                 float Z_vertical = sensorEvent.values[2];  
-//                if(X_lateral > 5)
-//                	Log.d("qiqi","\n heading "+X_lateral); 
+                if(Y_longitudinal > 3 || Y_longitudinal < -3)
+                	Log.d("qiqi","X_lateral:"+X_lateral + " Y_longitudinal:" + Y_longitudinal); 
                 if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !mSliding ){
                 	if(Y_longitudinal > 3 ){
                 		if(X_lateral > 0){
                 			mSensorCount ++;
-                			if(mSensorCount == 10){
+                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/(int)Y_longitudinal );
+                			if(mSensorCount >= 10 - (int)Y_longitudinal){
                 				mSensorCount = 0;
                 				pager.setCurrentItem(pager.getCurrentItem() + 1,true);
                 			}
                 		}else if(X_lateral < 0){
                 			mSensorCount ++;
-                			if(mSensorCount == 10){
+                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/(int)Y_longitudinal );
+                			if(mSensorCount >= 10 - (int)Y_longitudinal){
                 				mSensorCount = 0;
                 				pager.setCurrentItem(pager.getCurrentItem() -1,true);
                 			}
@@ -302,13 +304,15 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
                 	}else if (Y_longitudinal < -3){
                 		if(X_lateral > 0){
                 			mSensorCount ++;
-                			if(mSensorCount == 10){
+                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/-(int)Y_longitudinal );
+                			if(mSensorCount >= 10 +(int)Y_longitudinal){
                 				mSensorCount = 0;
                 				pager.setCurrentItem(pager.getCurrentItem() - 1,true);
                 			}
                 		}else{
                 			mSensorCount ++;
-                			if(mSensorCount == 10){
+                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/-(int)Y_longitudinal );
+                			if(mSensorCount >= 10 + (int)Y_longitudinal){
                 				mSensorCount = 0;
                 				pager.setCurrentItem(pager.getCurrentItem() + 1,true);
                 			}
