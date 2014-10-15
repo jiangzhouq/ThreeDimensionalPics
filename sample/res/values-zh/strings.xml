@@ -35,4 +35,7 @@
 	<string name="huangdengpian">幻灯片</string>
 	<string name="pic_last_one">最后一张图片!</string>
 	<string name="pic_first_one">第一张图片!</string>
+	<string name="slide_1">幻灯片间隔3秒</string>
+	<string name="slide_2">幻灯片间隔5秒</string>
+	<string name="slide_3">幻灯片间隔10秒</string>
 </resources>

@@ -37,6 +37,7 @@ import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnDragListener;
@@ -216,6 +217,20 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.huangdengpian:
+				mHandler.removeCallbacks(hideUIRun);
+				return false;
+			case R.id.huandengpian1:
+				mTimer = new Timer();
+				bar_show = !bar_show;
+				if(bar_show){
+					showSystemUI();
+				}else{
+					hideSystemUI();
+				}
+				mTimer.schedule(new MyTask(), 3000,3000);
+				mSliding = true;
+				return true;
+			case R.id.huandengpian2:
 				mTimer = new Timer();
 				bar_show = !bar_show;
 				if(bar_show){
@@ -224,6 +239,17 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 					hideSystemUI();
 				}
 				mTimer.schedule(new MyTask(), 5000,5000);
+				mSliding = true;
+				return true;
+			case R.id.huandengpian3:
+				mTimer = new Timer();
+				bar_show = !bar_show;
+				if(bar_show){
+					showSystemUI();
+				}else{
+					hideSystemUI();
+				}
+				mTimer.schedule(new MyTask(), 10000,10000);
 				mSliding = true;
 				return true;
 			default:
