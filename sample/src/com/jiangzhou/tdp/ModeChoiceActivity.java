@@ -36,6 +36,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,7 +60,15 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 				setListener();
 				break;
 			case 1:
-				loading.setText(R.string.no_connect);
+				SharedPreferences sharedData = getSharedPreferences("qiqi",
+						Context.MODE_PRIVATE);
+				String oDate = sharedData.getString("get_time", "");
+				if(!oDate.isEmpty()){
+					mHandler.sendEmptyMessage(0);
+				}
+				else{
+					loading.setText(R.string.no_connect);
+				}
 				break;
 			}
 		};
@@ -98,13 +107,16 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 		// getContentResolver().insert(Page.CONTENT_URI, value);
 		UmengUpdateAgent.update(this);
 		MobclickAgent.updateOnlineConfig(this);
-		if(isConnected()){
-			startGetInfo();
-		}else{
-//			TextView loading = (TextView) findViewById(R.id.warning);
-//			loading.setText(R.string.no_connect);
-			mHandler.sendEmptyMessage(1);
+//		if(isConnected()){
+		startGetInfo();
+		if(!isConnected()){
+			Toast.makeText(this, R.string.no_connect, Toast.LENGTH_SHORT).show();
 		}
+//		}else{
+////			TextView loading = (TextView) findViewById(R.id.warning);
+////			loading.setText(R.string.no_connect);
+//			mHandler.sendEmptyMessage(1);
+//		}
 		// LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
 		// menus.setVisibility(View.VISIBLE);
 		// setListener();
