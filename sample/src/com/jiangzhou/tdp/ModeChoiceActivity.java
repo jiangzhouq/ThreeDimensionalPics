@@ -50,13 +50,16 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 	DisplayImageOptions options;
 	private Handler mHandler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
+			TextView loading = (TextView) findViewById(R.id.warning);
 			switch (msg.what) {
 			case 0:
-				TextView loading = (TextView) findViewById(R.id.warning);
 				loading.setVisibility(View.GONE);
 				LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
 				menus.setVisibility(View.VISIBLE);
 				setListener();
+				break;
+			case 1:
+				loading.setText(R.string.no_connect);
 				break;
 			}
 		};
@@ -98,8 +101,9 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 		if(isConnected()){
 			startGetInfo();
 		}else{
-			TextView loading = (TextView) findViewById(R.id.warning);
-			loading.setText(R.string.no_connect);
+//			TextView loading = (TextView) findViewById(R.id.warning);
+//			loading.setText(R.string.no_connect);
+			mHandler.sendEmptyMessage(1);
 		}
 		// LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
 		// menus.setVisibility(View.VISIBLE);
@@ -211,6 +215,10 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			if(null == response){
+				mHandler.sendEmptyMessage(1);
+				return;
+			}
 			if (response.getStatusLine().getStatusCode() == 200) {
 				try {
 					strResult = EntityUtils.toString(response.getEntity());
@@ -275,6 +283,10 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			if(null == response){
+				mHandler.sendEmptyMessage(1);
+				return;
+			}
 			if (response.getStatusLine().getStatusCode() == 200) {
 				try {
 					strResult = EntityUtils.toString(response.getEntity());
@@ -324,6 +336,10 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
+			if(null == response){
+				mHandler.sendEmptyMessage(1);
+				return;
 			}
 			if (response.getStatusLine().getStatusCode() == 200) {
 				try {
