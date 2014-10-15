@@ -72,6 +72,7 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	private int mPagerPosition;
 	private Timer mTimer;
 	private boolean mSliding = false;
+	private int mTotalCount = 0;
 //	ImageButton blue;
 //	private int blue_state = 0;
 //	private final int STATE_BLUE_DISCONNECTED = 0;
@@ -104,6 +105,7 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		Bundle bundle = getIntent().getExtras();
 		assert bundle != null;
 		mImageUrls= bundle.getStringArray(Extra.IMAGES);
+		mTotalCount = mImageUrls.length;
 		mPagerPosition = bundle.getInt(Extra.IMAGE_POSITION, 0);
 
 		getActionBar().setDisplayShowTitleEnabled(false);
@@ -166,6 +168,16 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onPageSelected(int arg0) {
 				mPagerPosition = arg0;
+				if(mPagerPosition == mTotalCount -1){
+					Toast.makeText(ImagePagerActivity.this, R.string.pic_last_one, Toast.LENGTH_SHORT).show();
+					if(null != mTimer){
+						mSliding = false;
+						mTimer.cancel();
+					}
+				}else if(mPagerPosition == 0){
+					Toast.makeText(ImagePagerActivity.this, R.string.pic_first_one, Toast.LENGTH_SHORT).show();
+				}
+				
 			}
 			
 			@Override
