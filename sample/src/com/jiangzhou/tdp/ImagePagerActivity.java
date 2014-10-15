@@ -209,6 +209,7 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		// TODO Auto-generated method stub
 		super.onPause();
 		MobclickAgent.onPause(this);
+		mTimer.cancel();
 	}
 	private int mSensorCount = 0;
 	final SensorEventListener myAccelerometerListener = new SensorEventListener(){  
