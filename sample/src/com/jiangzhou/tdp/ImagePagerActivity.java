@@ -71,6 +71,7 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	private String[] mImageUrls;
 	private int mPagerPosition;
 	private Timer mTimer;
+	private boolean mSliding = false;
 //	ImageButton blue;
 //	private int blue_state = 0;
 //	private final int STATE_BLUE_DISCONNECTED = 0;
@@ -131,8 +132,10 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 			
 			@Override
 			public boolean onDrag(View arg0, DragEvent arg1) {
-				if(mTimer != null)
+				if(mTimer != null){
+					mSliding = false;
 					mTimer.cancel();
+				}
 				return true;
 			}
 		});
@@ -152,8 +155,10 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 
 			@Override
 			public void onTouchDown() {
-				if(mTimer != null)
+				if(mTimer != null){
+					mSliding = false;
 					mTimer.cancel();
+				}
 			}
 		});
 		pager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -207,6 +212,7 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 					hideSystemUI();
 				}
 				mTimer.schedule(new MyTask(), 5000,5000);
+				mSliding = true;
 				return true;
 			default:
 				return false;
@@ -223,8 +229,10 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		// TODO Auto-generated method stub
 		super.onPause();
 		MobclickAgent.onPause(this);
-		if(mTimer != null)
+		if(mTimer != null){
+			mSliding = false;
 			mTimer.cancel();
+		}
 	}
 	private int mSensorCount = 0;
 	final SensorEventListener myAccelerometerListener = new SensorEventListener(){  
@@ -238,7 +246,7 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
                 float Z_vertical = sensorEvent.values[2];  
 //                if(X_lateral > 5)
 //                	Log.d("qiqi","\n heading "+X_lateral); 
-                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE  ){
+                if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !mSliding ){
                 	if(Y_longitudinal > 3 ){
                 		if(X_lateral > 0){
                 			mSensorCount ++;
@@ -357,8 +365,10 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		if(mTimer != null)
+		if(mTimer != null){
+			mSliding = false;
 			mTimer.cancel();
+		}
 	}
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
