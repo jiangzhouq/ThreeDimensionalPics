@@ -36,8 +36,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View.OnDragListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -129,6 +131,15 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		pager.setPageTransformer(true, new ZoomOutPageTransformer());
 		pager.setAdapter(new ImagePagerAdapter(mImageUrls));
 		pager.setCurrentItem(mPagerPosition);
+		pager.setOnDragListener(new OnDragListener() {
+			
+			@Override
+			public boolean onDrag(View arg0, DragEvent arg1) {
+				if(mTimer != null)
+					mTimer.cancel();
+				return true;
+			}
+		});
 		pager.setToucher(new Toucher() {
 			@Override
 			public void onTouchUp() {
@@ -209,7 +220,8 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 		// TODO Auto-generated method stub
 		super.onPause();
 		MobclickAgent.onPause(this);
-		mTimer.cancel();
+		if(mTimer != null)
+			mTimer.cancel();
 	}
 	private int mSensorCount = 0;
 	final SensorEventListener myAccelerometerListener = new SensorEventListener(){  
