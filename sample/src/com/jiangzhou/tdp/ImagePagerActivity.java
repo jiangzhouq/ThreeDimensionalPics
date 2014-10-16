@@ -276,6 +276,7 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	final SensorEventListener myAccelerometerListener = new SensorEventListener(){  
         
         //复写onSensorChanged方法  
+		int firstCount = 10;
         public void onSensorChanged(SensorEvent sensorEvent){  
             if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){  
                 //图解中已经解释三个值的含义  
@@ -288,15 +289,17 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
                 	if(Y_longitudinal > 3 ){
                 		if(X_lateral > 0){
                 			mSensorCount ++;
-                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/(int)Y_longitudinal );
-                			if(mSensorCount >= 10 - (int)Y_longitudinal){
+                			firstCount--;
+                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/(int)Y_longitudinal + " firstCount:" + firstCount );
+                			if(mSensorCount >= 10 - (int)Y_longitudinal && firstCount < 0){
                 				mSensorCount = 0;
                 				pager.setCurrentItem(pager.getCurrentItem() + 1,true);
                 			}
                 		}else if(X_lateral < 0){
                 			mSensorCount ++;
-                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/(int)Y_longitudinal );
-                			if(mSensorCount >= 10 - (int)Y_longitudinal){
+                			firstCount--;
+                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/(int)Y_longitudinal + " firstCount:" + firstCount ) ;
+                			if(mSensorCount >= 10 - (int)Y_longitudinal && firstCount < 0){
                 				mSensorCount = 0;
                 				pager.setCurrentItem(pager.getCurrentItem() -1,true);
                 			}
@@ -304,19 +307,23 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
                 	}else if (Y_longitudinal < -3){
                 		if(X_lateral > 0){
                 			mSensorCount ++;
-                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/-(int)Y_longitudinal );
-                			if(mSensorCount >= 10 +(int)Y_longitudinal){
+                			firstCount--;
+                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/-(int)Y_longitudinal + " firstCount:" + firstCount ) ;
+                			if(mSensorCount >= 10 +(int)Y_longitudinal && firstCount < 0){
                 				mSensorCount = 0;
                 				pager.setCurrentItem(pager.getCurrentItem() - 1,true);
                 			}
                 		}else{
                 			mSensorCount ++;
-                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/-(int)Y_longitudinal );
-                			if(mSensorCount >= 10 + (int)Y_longitudinal){
+                			firstCount--;
+                			Log.d("qiqi", "mSensorCount:" + mSensorCount + " /:" +30/-(int)Y_longitudinal + " firstCount:" + firstCount ) ;
+                			if(mSensorCount >= 10 + (int)Y_longitudinal && firstCount < 0){
                 				mSensorCount = 0;
                 				pager.setCurrentItem(pager.getCurrentItem() + 1,true);
                 			}
                 		}
+                	}else{
+                		firstCount = 10;
                 	}
                 }
             }  
