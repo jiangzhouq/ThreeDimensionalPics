@@ -36,20 +36,22 @@
             <Button
                 android:id="@+id/honglan"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:text="红蓝图片"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF" 
+                android:gravity="center"/>
 
             <Button
                 android:id="@+id/zuoyou"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:text="左右图片"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:gravity="center" />
         </LinearLayout>
     </RelativeLayout>
 

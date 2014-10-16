@@ -30,8 +30,8 @@
 	<string name="category9">汽车</string>
 	<string name="category10">影视</string>
 	<string name="category11">游戏</string>
-	<string name="loading">正在加载,请稍后...</string>
-	<string name="no_connect">无法链接到网络,请检查...</string>
+	<string name="loading">正在加载,请稍候...</string>
+	<string name="no_connect">无法连接到网络,请检查...</string>
 	<string name="huangdengpian">幻灯片</string>
 	<string name="pic_last_one">最后一张图片!</string>
 	<string name="pic_first_one">第一张图片!</string>
