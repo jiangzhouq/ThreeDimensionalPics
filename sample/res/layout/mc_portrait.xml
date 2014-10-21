@@ -19,7 +19,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp" 
             android:layout_alignParentBottom="true"
-            android:background="#88000000"
+            android:background="#88000000"  
             android:text="@string/loading"
             android:textSize="8pt"
             android:textColor="@android:color/white"
@@ -53,6 +53,15 @@
                 android:textColor="#FFFFFF"
                 android:gravity="center" />
         </LinearLayout>
+        <ImageView 
+            android:id="@+id/setting"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/setting"
+            android:visibility="invisible"/>
     </RelativeLayout>
 
     <RelativeLayout

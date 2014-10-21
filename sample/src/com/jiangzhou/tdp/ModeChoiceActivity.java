@@ -32,6 +32,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +59,8 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 				loading.setVisibility(View.GONE);
 				LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
 				menus.setVisibility(View.VISIBLE);
+				ImageView setting = (ImageView) findViewById(R.id.setting);
+				setting.setVisibility(View.VISIBLE);
 				setListener();
 				break;
 			case 1:
@@ -78,12 +82,12 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		mDecorView = getWindow().getDecorView();
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			setContentView(R.layout.mc_landscape);
 		} else {
 			setContentView(R.layout.mc_portrait);
 		}
+		mDecorView = getWindow().getDecorView();
 		options = new DisplayImageOptions.Builder()
 				.showImageForEmptyUri(R.drawable.ic_empty)
 				.showImageOnFail(R.drawable.ic_error)
@@ -120,6 +124,8 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 		// LinearLayout menus = (LinearLayout) findViewById(R.id.menus);
 		// menus.setVisibility(View.VISIBLE);
 		// setListener();
+		ImageView setting = (ImageView) findViewById(R.id.setting);
+		setting.setOnClickListener(this);
 	}
 	@Override
 	protected void onResume() {
@@ -153,6 +159,9 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 			intent.putExtra(Constants.MODE_CHOICE_NAME,
 					Constants.MODE_CHOLICE_ZUOYOU);
 			startActivity(intent);
+			break;
+		case R.id.setting:
+			startActivity(new Intent(this, AboutActivity.class));
 			break;
 		}
 	}
@@ -207,7 +216,7 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 				| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 				| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 	}
-
+	
 	Runnable getRun = new Runnable() {
 		@Override
 		public void run() {
