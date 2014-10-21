@@ -56,7 +56,6 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -260,13 +259,11 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		MobclickAgent.onResume(this);
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		MobclickAgent.onPause(this);
 		if(mTimer != null){
 			mSliding = false;
 			mTimer.cancel();

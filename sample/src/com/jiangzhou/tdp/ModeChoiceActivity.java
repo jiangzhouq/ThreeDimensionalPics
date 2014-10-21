@@ -44,7 +44,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 public class ModeChoiceActivity extends Activity implements OnClickListener {
@@ -110,7 +109,6 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 		// value.put(Page.COLUMN_DEFAULT_CTIME, "20140901");
 		// getContentResolver().insert(Page.CONTENT_URI, value);
 		UmengUpdateAgent.update(this);
-		MobclickAgent.updateOnlineConfig(this);
 //		if(isConnected()){
 		startGetInfo();
 		if(!isConnected()){
@@ -131,13 +129,11 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		MobclickAgent.onResume(this);
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		MobclickAgent.onPause(this);
 	}
 	private void setListener() {
 		Button view1 = (Button) findViewById(R.id.honglan);

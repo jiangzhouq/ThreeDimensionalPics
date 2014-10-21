@@ -34,7 +34,6 @@ import com.jiangzhou.tdp.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -123,13 +122,11 @@ public class CategoryActivity extends FragmentActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		MobclickAgent.onResume(this);
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		MobclickAgent.onPause(this);
 	}
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
