@@ -32,14 +32,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.kirin.StatUpdateAgent;
+import com.baidu.mobstat.SendStrategyEnum;
+import com.baidu.mobstat.StatService;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -124,16 +125,24 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 		// setListener();
 		ImageView setting = (ImageView) findViewById(R.id.setting);
 		setting.setOnClickListener(this);
+		StatService.setAppKey("346cff2b52");
+		StatService.setAppChannel(this, "wangzhan", true);
+		StatService.setOn(this, StatService.EXCEPTION_LOG);
+		StatService.setLogSenderDelayed(10);
+		StatService.setSendLogStrategy(this, SendStrategyEnum.APP_START,1, false);
+		StatService.setDebugOn(true);
 	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		StatService.onResume(this);
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		StatService.onPause(this);
 	}
 	private void setListener() {
 		Button view1 = (Button) findViewById(R.id.honglan);

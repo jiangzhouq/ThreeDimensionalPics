@@ -36,6 +36,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.baidu.mobstat.StatService;
 import com.jiangzhou.tdp.Constants.Extra;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -109,11 +110,13 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		StatService.onResume(this);
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		StatService.onPause(this);
 	}
 	private void startImagePagerActivity(int position) {
 		Intent intent = new Intent(this, ImagePagerActivity.class);

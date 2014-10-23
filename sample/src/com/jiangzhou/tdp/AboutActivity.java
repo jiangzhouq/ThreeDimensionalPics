@@ -1,5 +1,7 @@
 package com.jiangzhou.tdp;
 
+import com.baidu.mobstat.StatService;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -39,7 +41,18 @@ public class AboutActivity extends Activity implements OnClickListener {
 		Button callBtn = (Button) findViewById(R.id.call);
 		callBtn.setOnClickListener(this);
 	}
-
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		StatService.onResume(this);
+	}
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		StatService.onPause(this);
+	}
 	@Override
 	public void onClick(View view) {
 		final Button phoneBtn = (Button) findViewById(R.id.phone);

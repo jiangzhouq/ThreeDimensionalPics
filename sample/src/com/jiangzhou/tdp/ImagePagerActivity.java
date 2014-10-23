@@ -47,6 +47,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.jiangzhou.tdp.Constants.Extra;
 import com.jiangzhou.tdp.widget.MyViewPager;
 import com.jiangzhou.tdp.widget.MyViewPager.Toucher;
@@ -259,11 +260,13 @@ public class ImagePagerActivity extends BaseActivity implements OnClickListener 
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		StatService.onResume(this);
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		StatService.onPause(this);
 		if(mTimer != null){
 			mSliding = false;
 			mTimer.cancel();
