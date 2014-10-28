@@ -38,7 +38,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.kirin.StatUpdateAgent;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.baidu.mobstat.SendStrategyEnum;
 import com.baidu.mobstat.StatService;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -131,6 +132,9 @@ public class ModeChoiceActivity extends Activity implements OnClickListener {
 		StatService.setLogSenderDelayed(10);
 		StatService.setSendLogStrategy(this, SendStrategyEnum.APP_START,1, false);
 		StatService.setDebugOn(true);
+		
+		PushManager.startWork(getApplicationContext(),
+                PushConstants.LOGIN_TYPE_API_KEY,"FcPyenVyhGpEZyIW9iYvDng0");
 	}
 	@Override
 	protected void onResume() {
